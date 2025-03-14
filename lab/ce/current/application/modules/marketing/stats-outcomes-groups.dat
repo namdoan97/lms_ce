@@ -1,0 +1,24 @@
+[0]
+values = "null, ,reschedule"
+color = "color-medium"
+en = "-"
+
+
+[1]
+values = "nosale,noshow"
+color = "color-alert"
+en = "No Sale"
+
+
+[2]
+values = "promo"
+color = "color-soso"
+en = "Promo"
+
+
+[3]
+values = "sale"
+color = "color-good"
+en = "Sale"
+
+

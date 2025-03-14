@@ -1,0 +1,28 @@
+[info]
+en = "List Content Developers"
+vn = ""
+fixed = "yes"
+
+
+[sql]
+query = "SELECT $fields$ FROM users WHERE status = 'active' AND role IN ('contdev', 'contman', 'qa')"
+table = "users"
+fields = "id,firstname,lastname"
+
+
+[center]
+en = "Home Center"
+vn = ""
+source = "centers"
+type = "select"
+multiple = "no"
+
+
+[role]
+en = "Role"
+vn = ""
+source = "roles"
+type = "select"
+multiple = "no"
+
+

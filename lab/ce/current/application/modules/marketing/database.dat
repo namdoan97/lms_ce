@@ -1,0 +1,61 @@
+[panel lists title]
+en = "LISTS"
+vn = "Danh sách"
+
+
+[list menu upload]
+en = "Upload Leads"
+
+
+[list menu transfer]
+en = "Transfer List"
+
+
+[list menu download]
+en = "Download Leads"
+
+
+[list menu move]
+en = "Move Leads"
+
+
+[list menu delete]
+en = "Delete List"
+
+
+[list menu rename]
+en = "Rename List"
+
+
+[list menu cleanup]
+en = "Cleanup List"
+
+
+[list menu leads]
+en = "LEADS"
+
+
+[list menu stats]
+en = "USAGE"
+
+
+[list title]
+en = "LIST “$name$”"
+
+
+[chart title leadsusage]
+en = "Leads Usage"
+
+
+[chart legend unused]
+en = "Unused"
+
+
+[chart legend used]
+en = "Used"
+
+
+[chart title listoutcomes]
+en = "List Outcomes"
+
+

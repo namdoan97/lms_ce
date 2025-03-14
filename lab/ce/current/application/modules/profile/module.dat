@@ -1,0 +1,57 @@
+[module]
+menu-icon = ""
+en = "Profile"
+
+
+[module header title]
+en = "PROFILE"
+
+
+[profile aboutme title]
+en = "ABOUT ME"
+
+
+[profile aboutme placeholder]
+en = "You can use this space to write something about yourself!"
+
+
+[logout popup title]
+en = "Logging Out"
+
+
+[logout popup text]
+en = "Are you sure you want to log out and close this session? Make sure you remember your password to log back in!"
+
+
+[password change title]
+en = "Change Password"
+
+
+[password change button]
+en = "CHANGE"
+
+
+[password change current]
+en = "Current Password"
+
+
+[password change new]
+en = "New Password"
+
+
+[password change repeat]
+en = "Repeat New Password"
+
+
+[password change wrong]
+en = "Wrong Password"
+
+
+[password change different]
+en = "Passwords don't match"
+
+
+[password change tooshort]
+en = "Too short. Min $n$ characters"
+
+

@@ -1,0 +1,9 @@
+[module]
+menu-icon = "calendar"
+en = "Appointments"
+
+
+[module header title]
+en = "APPOINTMENTS"
+
+

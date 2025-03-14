@@ -1,0 +1,20 @@
+[student_id]
+en = "Student ID"
+vn = ""
+
+
+[student_name]
+en = "Student Name"
+vn = ""
+
+
+[mobile]
+en = "Mobile Number"
+vn = ""
+
+
+[email]
+en = "Email Address"
+vn = ""
+
+

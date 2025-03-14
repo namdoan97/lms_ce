@@ -1,0 +1,42 @@
+<div class = "container-column gap-medium" style = "width:100%; height:100%;">
+
+	<div class = "container-row gap-medium padding-medium border-rounded" style = "overflow:hidden; width:100%; background-color:var(--color-medium); align-items:center; justify-content:space-between">
+		
+		
+	    <div class = "container-row gap-medium">
+			<div class = "container-row gap-small" style = "align-items:center">
+				<div data-uid = "date-lastweek" class = "text-title-small style-clickable">%date lastweek%</div>
+			</div>
+			
+			<div class = "container-row gap-small" style = "align-items:center">
+				<div data-uid = "date-yesterday" class = "text-title-small style-clickable">%date yesterday%</div>
+			</div>
+		
+			<div class = "container-row gap-small" style = "align-items:center">
+				<div data-uid = "date-today" class = "text-title-small style-clickable">%date today%</div>
+			</div>
+			
+			<div class = "container-row gap-small" style = "align-items:center">
+				<div data-uid = "date-thisweek" class = "text-title-small style-clickable">%date thisweek%</div>
+			</div>
+		</div>
+		
+		
+		<div class = "container-row gap-medium">
+			<div class = "container-row gap-small"  style = "align-items:center">
+				<div class = "text-title-small">%filter date from%</div>
+				<element data-uid = "date-from" control-date-plain />
+			</div>
+			
+			<div class = "container-row gap-small" style = "align-items:center">
+				<div class = "text-title-small">%filter date to%</div>
+				<element data-uid = "date-to" control-date-plain />
+			</div>
+		</div>
+		
+	</div>
+
+	<div data-uid = "cases-list" class = "container-blocks gap-medium padding-medium border-rounded" style = "overflow:hidden auto; width:100%; height:100%; background-color:var(--color-medium)">
+	</div>
+
+</div>

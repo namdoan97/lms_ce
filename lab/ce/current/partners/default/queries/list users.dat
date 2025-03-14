@@ -1,0 +1,25 @@
+[info]
+en = "List Users"
+vn = ""
+table = "users"
+fixed = "no"
+
+
+[sql]
+query = "SELECT * FROM users WHERE center = $center$ AND role = $role$"
+
+
+[center]
+en = "Home Center"
+vn = ""
+source = "centers"
+multiple = "no"
+
+
+[role]
+en = "Role"
+vn = ""
+source = "roles"
+multiple = "no"
+
+

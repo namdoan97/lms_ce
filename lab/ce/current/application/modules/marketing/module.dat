@@ -1,0 +1,11 @@
+[module]
+menu-icon = "deskphone"
+en = "CUSTOMER CARE"
+vn = "CHĂM SÓC"
+
+
+[module header title]
+en = "CUSTOMER CARE"
+vn = "CHĂM SÓC"
+
+

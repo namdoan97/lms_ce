@@ -1,0 +1,392 @@
+[lms login]
+department = "product"
+category = "lms"
+en = "LMS Access/Login"
+vn = "Truy cập/đăng nhập vào LMS"
+
+
+[lms setup]
+department = "product"
+category = "lms"
+en = "LMS Setup"
+vn = "Cấu hình hệ thống LMS"
+
+
+[lms ui]
+department = "product"
+category = "lms"
+en = "Ease of Use / UI"
+vn = "Tính tiện dụng / Giao diện người dùng"
+
+
+[lms assessment]
+department = "product"
+category = "lms"
+en = "Navigating Lesson Assessment"
+vn = "Điều hướng phần Đánh giá Bài học"
+
+
+[lms devices]
+department = "product"
+category = "lms"
+en = "Device Support"
+vn = "Hỗ trợ Thiết bị"
+
+
+[lms support]
+department = "product"
+category = "lms"
+en = "Tech Support & Assistance"
+vn = "Hỗ trợ Kỹ thuật"
+
+
+[content quality]
+department = "product"
+category = "content"
+en = "Quality and Appearance"
+vn = "Chất lượng và Giao diện"
+
+
+[content structure]
+department = "product"
+category = "content"
+en = "Structure and Organization"
+vn = "Cấu trúc và Cách tổ chức"
+
+
+[content age]
+department = "product"
+category = "content"
+en = "Content Fit (Age Group)"
+vn = "Sự phù hợp về nội dung (theo nhóm tuổi)"
+
+
+[content level]
+department = "product"
+category = "content"
+en = "Content Fit (Level)"
+vn = "Sự phù hợp về nội dung (theo trình độ)"
+
+
+[content engagement]
+department = "product"
+category = "content"
+en = "Content Engagement"
+vn = "Mức độ Tương tác với Nội dung"
+
+
+[content accuracy]
+department = "product"
+category = "content"
+en = "Content Accuracy"
+vn = "Độ chính xác của Nội dung"
+
+
+[content homework]
+department = "product"
+category = "content"
+en = "Homework Difficulty"
+vn = "Độ khó của Bài tập về nhà"
+
+
+[center tidiness]
+department = "be"
+category = "center"
+en = "Center Tidiness"
+vn = "Sự ngăn nắp và sạch sẽ của Trung tâm"
+
+
+[center sanitation]
+department = "be"
+category = "center"
+en = "Center Sanitary Supplies"
+vn = "Dụng cụ Vệ sinh của Trung tâm"
+
+
+[center supervision]
+department = "be"
+category = "center"
+en = "Center Supervision"
+vn = "Giám sát Trung tâm"
+
+
+[center security]
+department = "be"
+category = "center"
+en = "Security Staff Behavior"
+vn = "Thái độ Nhân viên Bảo vệ"
+
+
+[center parking]
+department = "be"
+category = "center"
+en = "Center Parking and Traffic"
+vn = "Khu đỗ xe và Giao thông khu vực Trung tâm"
+
+
+[center ac]
+department = "be"
+category = "center"
+en = "Center AC/Climatization"
+vn = "Hệ thống Điều hòa tại Trung tâm"
+
+
+[center accessibility]
+department = "be"
+category = "center"
+en = "Center Accessibility (Elevator, Stairs...)"
+vn = "Khả năng tiếp cận tại Trung tâm (thang máy, cầu thang bộ,...)"
+
+
+[classroom furniture]
+department = "be"
+category = "classroom"
+en = "Classroom Furniture"
+vn = "Nội thất lớp học"
+
+
+[classroom equipment]
+department = "be"
+category = "classroom"
+en = "Classroom HW Equipment (Sound, Screen...)"
+vn = "Thiết bị Phần cứng trong lớp học (Âm thanh, màn hình...)"
+
+
+[course wait]
+department = "sales"
+category = "course"
+en = "Course Arrangement Wait"
+vn = "Đợi xếp lớp"
+
+
+[course level]
+department = "sales"
+category = "course"
+en = "Course Level Placement"
+vn = "Xếp lớp theo Trình độ"
+
+
+[refund complexity]
+department = "sales"
+category = "refund"
+en = "Refund Process Complexity"
+vn = "Độ phức tạp của Quy trình Hoàn tiền"
+
+
+[refund approval]
+department = "sales"
+category = "refund"
+en = "Refund Approval"
+vn = "Phê duyệt Hoàn tiền"
+
+
+[refund time]
+department = "sales"
+category = "refund"
+en = "Refund Time"
+vn = "Thời gian Hoàn tiền"
+
+
+[refund communication]
+department = "sales"
+category = "refund"
+en = "Refund Communication"
+vn = "Thông báo về việc Hoàn tiền"
+
+
+[ep product]
+department = "sales"
+category = "ep"
+en = "EP Knowledge of Products"
+vn = "Kiến thức của EP về Sản phẩm"
+
+
+[ep pricing]
+department = "sales"
+category = "ep"
+en = "EP Knowledge of Prices"
+vn = "Kiến thức của EP về Học phí"
+
+
+[ep behavior]
+department = "sales"
+category = "ep"
+en = "EP Behavior, language, attitude"
+vn = "Cách ứng xử, cách dùng từ ngữ, và thái độ của EP"
+
+
+[ep truthfulness]
+department = "sales"
+category = "ep"
+en = "EP Representation of Services"
+vn = "Cách EP thực hiện dịch vụ"
+
+
+[ep expectation]
+department = "sales"
+category = "ep"
+en = "EP Expectation Management"
+vn = "Quản lý Kỳ vọng của EP"
+
+
+[ao placement]
+department = "operations"
+category = "ao"
+en = "AO Level Placement"
+vn = "Sắp xếp Trình độ AO"
+
+
+[ao care]
+department = "operations"
+category = "ao"
+en = "AO Care Level"
+vn = "Mức độ Chăm sóc khách hàng của AO"
+
+
+[ao availability]
+department = "operations"
+category = "ao"
+en = "AO Availability"
+vn = "Tính khả dụng của AO"
+
+
+[ao behavior]
+department = "operations"
+category = "ao"
+en = "AO Behavior, Language, Attitude"
+vn = "Cách ứng xử, cách dùng từ ngữ, và thái độ của AO"
+
+
+[ao product]
+department = "operations"
+category = "ao"
+en = "AO Product & Services Knowledge"
+vn = "Kiến thức của AO về Sản phẩm và Dịch vụ"
+
+
+[ao student]
+department = "operations"
+category = "ao"
+en = "AO Student Knowledge"
+vn = "Kiến thức của AO về Học viên"
+
+
+[ta behavior]
+department = "operations"
+category = "ta"
+en = "TA Behavior, Language, Attitude"
+vn = "Cách ứng xử, cách dùng từ ngữ, và thái độ của TA"
+
+
+[ta student]
+department = "dtl"
+category = "ta"
+en = "TA Student Knowledge"
+vn = "Kiến thức của TA về Học viên"
+
+
+[ta attendance]
+department = "operations"
+category = "ta"
+en = "TA Admin Tasks"
+vn = "Quản lý việc Điểm danh của TA"
+
+
+[ta communication]
+department = "operations"
+category = "ta"
+en = "TA Communication & Availability"
+vn = "Sự giao tiếp và Tính khả dụng của TA "
+
+
+[ta change]
+department = "operations"
+category = "ta"
+en = "TA Changing"
+vn = "Thay đổi TA"
+
+
+[ta usefulness]
+department = "dtl"
+category = "ta"
+en = "TA Usefulness"
+vn = "Tính hữu dụng của TA"
+
+
+[teacher behavior]
+department = "dtl"
+category = "teacher"
+en = "Teacher Behavior, Language, Attitude"
+vn = "Cách ứng xử, cách dùng từ ngữ, và thái độ của Giáo viên"
+
+
+[teacher effectiveness]
+department = "dtl"
+category = "teacher"
+en = "Teacher Effectiveness"
+vn = "Hiệu quả Giảng dạy"
+
+
+[teacher engagement]
+department = "dtl"
+category = "teacher"
+en = "Teacher Engagement"
+vn = "Sự Hăng hái của Giáo viên"
+
+
+[teacher methods]
+department = "dtl"
+category = "teacher"
+en = "Teacher Methods"
+vn = "Phương pháp Giảng dạy"
+
+
+[teacher tidiness]
+department = "dtl"
+category = "teacher"
+en = "Teacher Dress Code & Tidiness"
+vn = "Quy định về Trang phục và Sự tươm tất của Giáo viên"
+
+
+[teacher nationality]
+department = "dtl"
+category = "teacher"
+en = "Teacher Accent or Nationality"
+vn = "Giọng và Quốc tịch của Giáo viên"
+
+
+[teacher change]
+department = "dtl"
+category = "teacher"
+en = "Teacher Change"
+vn = "Thay đổi Giáo viên"
+
+
+[teacher student]
+department = "dtl"
+category = "teacher"
+en = "Teacher Knowledge of Students"
+vn = "Sự am hiểu của Giáo viên về Học sinh"
+
+
+[teacher motivation]
+department = "dtl"
+category = "teacher"
+en = "Teacher Motivation, Recognition, Rewarding"
+vn = "Động lực, Sự công nhận, và Phần thưởng dành cho Giáo viên"
+
+
+[progress speed]
+department = "dtl"
+category = "progress"
+en = "Progress Speed"
+vn = "Tốc độ Phát triển"
+
+
+[progress visibility]
+department = "dtl"
+category = "progress"
+en = "Progress Visibility"
+vn = "Mức độ rõ ràng của Sự phát triển"
+
+

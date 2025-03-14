@@ -1,0 +1,16 @@
+[info]
+en = "List Students"
+vn = ""
+
+
+[sql]
+query = "SELECT * FROM users WHERE center = $center$ AND role = 'student'"
+
+
+[center]
+en = "Home Center"
+vn = ""
+source = "centers"
+multiple = "no"
+
+

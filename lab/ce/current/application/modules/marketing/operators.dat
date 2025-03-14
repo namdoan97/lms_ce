@@ -1,0 +1,20 @@
+[operator appointments title]
+en = "OPERATOR CASES FROM THE LAST $days$ DAYS"
+
+
+[operator recalls title]
+en = "OPERATOR RE-CALLS"
+
+
+[operator stats title]
+en = "OPERATOR PERFORMANCE"
+
+
+[operator stats subtitle]
+en = "Last $days$ Days"
+
+
+[operator stats calltime]
+en = "<b>Total Call Time:</b> $time$ Minutes"
+
+

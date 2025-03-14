@@ -1,0 +1,104 @@
+[id]
+en = "Id"
+
+
+[role]
+en = "Role"
+
+
+[center]
+en = "Center"
+
+
+[password]
+en = "Password"
+
+
+[status]
+en = "Status"
+
+
+[firstname]
+en = "First Name"
+
+
+[lastname]
+en = "Last Name"
+
+
+[midname]
+en = "Middle Name"
+
+
+[nickname]
+en = "Nickname"
+
+
+[nationality]
+en = "Nationality"
+
+
+[birthdate]
+en = "Birth Date"
+
+
+[gender]
+en = "Gender"
+
+
+[idcard]
+en = "Id Number / Passport"
+
+
+[taxcode]
+en = "Tax Code"
+
+
+[staffcode]
+en = "Staff Code"
+
+
+[country]
+en = "Country"
+
+
+[city]
+en = "City"
+
+
+[province]
+en = "Province"
+
+
+[address]
+en = "Address"
+
+
+[email]
+en = "Email"
+
+
+[mobile]
+en = "Mobile"
+
+
+[im]
+en = "Messenger"
+
+
+[manager_id]
+en = "Managed By"
+
+
+[family_id]
+en = "Family or Company"
+
+
+[notes]
+en = "Notes"
+
+
+[picture]
+en = "Picture"
+
+

@@ -1,0 +1,88 @@
+[nps]
+dept = "nps"
+en = "Would you recommend ILA to a friend?"
+vn = "Bạn có giới thiệu ILA cho bạn bè không?"
+type = "nps"
+values = "1,3,5"
+
+
+[studyplatform]
+dept = "product"
+en = "How would you rate the quality of the Learning Platform?"
+vn = "Bạn sẽ đánh giá nền tảng Học tập và Đánh giá như thế nào?"
+type = "score"
+values = "1 to 5"
+
+
+[content]
+dept = "product"
+en = "How would you rate the quality of Homework and Study Materials?"
+vn = "Bạn đánh giá thế nào về chất lượng của các bài tập về nhà và tài liệu học?"
+type = "score"
+values = "1 to 5"
+
+
+[teacher]
+dept = "dtl"
+en = "How would you rate the Quality and Engagement Level of your Teacher?"
+vn = "Bạn có hài lòng với chất lượng và mức độ tương tác của giáo viên không?"
+type = "score"
+values = "1 to 5"
+
+
+[progress]
+dept = "dtl"
+en = "How would you rate the child’s overall learning progress in this course?"
+vn = "Bạn có hài lòng với chất lượng và mức độ tương tác của giáo viên không?"
+type = "score"
+values = "1 to 5"
+
+
+[ta]
+dept = "operations"
+en = "How would you rate the Interactions and Information provided by your TA?"
+vn = "Bạn có hài lòng với sự tương tác và thông tin mà trợ giảng cung cấp không?"
+type = "score"
+values = "1 to 5"
+
+
+[service]
+dept = "be"
+en = "How would you rate the support received by Service Staff? (Security Staff, Cleaners...)"
+vn = "Trên thang điểm 5, hãy đánh giá sự hỗ trợ mà bạn nhận được từ nhân viên (Bảo vệ, Lao Công,...)"
+type = "score"
+values = "1 to 5"
+
+
+[facilities]
+dept = "be"
+en = "How would you rate the cleanliness and quality of our facilities? (Classrooms, Waiting areas, Elevators...)"
+vn = "Trên thang điểm 5, hãy đánh giá mức độ sạch sẽ và chất lượng cơ sở vật chất của chúng tôi (Phòng học, Khu vực chờ, Thang máy...) "
+type = "score"
+values = "1 to 5"
+
+
+[sales]
+dept = "expectations"
+en = "How would you rate our delivery of your expectations, and goals we set together?"
+vn = "Chúng tôi có đáp ứng được các mong đợi và mục tiêu ban đầu của bạn không?"
+type = "score"
+values = "1 to 5"
+
+
+[communication]
+dept = "operations"
+en = "How would you rate the timeliness and effectiveness of responses to your inquiries or concerns?"
+vn = "Chúng tôi có cung cấp khóa học đúng giờ và thuận tiện cho bạn không"
+type = "score"
+values = "1 to 5"
+
+
+[reenrol]
+dept = "operations"
+en = "How likely are you to re-enroll?"
+vn = "Chúng tôi có cung cấp khóa học đúng giờ và thuận tiện cho bạn không"
+type = "likert"
+values = "1,3,5"
+
+

@@ -1,0 +1,9 @@
+[module]
+menu-icon = ""
+en = ""
+
+
+[module header title]
+en = "TEMPLATE"
+
+

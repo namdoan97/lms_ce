@@ -1,0 +1,18 @@
+[yes]
+en = "Yes"
+vn = "Có"
+score = "5"
+
+
+[neutral]
+en = "Neutral"
+vn = "Trung lập"
+score = "3"
+
+
+[no]
+en = "No"
+vn = "Không"
+score = "1"
+
+

@@ -1,0 +1,35 @@
+[opened]
+en = "Opened"
+color = "color-noted"
+
+
+[wip]
+en = "Investigate Further"
+color = "color-soso"
+
+
+[closedbad]
+en = "Closed"
+color = "color-bad"
+
+
+[closedok]
+en = "Positive Feedback"
+color = "color-good"
+
+
+[reopened]
+en = "Reopened"
+color = "color-alert"
+
+
+[resolved]
+en = "Resolved"
+color = "color-good"
+
+
+[neutralfeedback]
+en = "Neutral Feedback"
+color = "color-good"
+
+

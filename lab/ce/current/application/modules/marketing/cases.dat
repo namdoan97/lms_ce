@@ -1,0 +1,20 @@
+[filter date from]
+en = "FROM DATE"
+
+
+[filter date to]
+en = "TO DATE"
+
+[date thisweek]
+en = "THIS WEEK"
+
+[date lastweek]
+en = "LAST WEEK"
+
+[date today]
+en = "TODAY"
+
+[date yesterday]
+en = "YESTERDAY"
+
+

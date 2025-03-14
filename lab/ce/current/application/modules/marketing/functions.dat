@@ -1,0 +1,36 @@
+[database]
+en = "DATABASE"
+
+
+[admin]
+en = "ADMINISTRATION"
+
+
+[operators]
+en = "OPERATORS"
+
+
+[call]
+en = "CALL"
+
+
+[stats]
+en = "STATISTICS"
+
+
+[search]
+en = "SEARCH"
+
+
+[recalls]
+en = "RE-CALLS"
+
+
+[cases]
+en = "CASES"
+
+
+[create]
+en = "CREATE"
+
+

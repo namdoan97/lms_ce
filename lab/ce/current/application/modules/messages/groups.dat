@@ -1,0 +1,20 @@
+[unread]
+en = "UNREAD"
+period = "unread"
+
+
+[last month]
+en = "LAST MONTH"
+period = "last month"
+
+
+[last week]
+en = "LAST WEEK"
+period = "last week"
+
+
+[this week]
+en = "THIS WEEK"
+period = "this week"
+
+

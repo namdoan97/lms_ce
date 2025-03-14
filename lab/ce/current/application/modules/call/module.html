@@ -1,0 +1,177 @@
+<div data-uid = "module-body" class = "container-row gap-medium padding-medium" style = "width:100%; height:100%; overflow:hidden; justify-content:center">
+
+	<!-- ACTIONS -->
+
+	<div class = "container-column gap-medium padding-medium border-rounded" style = "width:256px; height:100%; overflow:hidden;  align-items:center">
+	
+	
+		<!-- NEW CALL -->
+		<div data-uid = "button-newcall" class = "container-row gap-medium padding-medium border-rounded style-clickable style-selectable text-title-small" style = "width:100%; background-color:var(--color-medium); text-transform:uppercase">
+		
+			<li class = "fas fa-phone"></li>
+			
+			<div>%button call new%</div>
+		
+		</div>
+		
+		
+		<!-- SEARCH -->
+		<div data-uid = "button-search" class = "container-row gap-medium padding-medium border-rounded style-clickable style-selectable text-title-small" style = "width:100%; background-color:var(--color-medium); text-transform:uppercase">
+		
+			<li class = "fas fa-search"></li>
+			
+			<div>%button call search%</div>
+		
+		</div>
+		
+	
+	</div>
+
+
+	<!-- CALL -->
+	<div class = "container-column gap-medium" style = "height:100%; overflow:hidden; align-items:center">
+
+		<!-- TOP PANEL: MAIN FORM -->
+		<div data-uid = "panel-form" class = "container-column border-rounded padding-medium gap-medium" style = "flex-shrink:0;  width:848px; overflow:hidden">
+		
+			<!-- STUDENT INFO -->
+			<div class = "container-row gap-medium text-caption-small">
+			
+				<! -- STUDENT ID -->
+				<div class = "container-column gap-small" style = "width:192px; text-transform:uppercase; overflow:hidden">
+						
+					<div class = "text-title-small" style = "text-wrap:nowrap">%student_id-caption%</div>
+					
+					<element data-uid = "student_id"  style = "width:100%" control-edit-plain/>
+				
+				</div>
+				
+				<! -- STUDENT NAME -->
+				<div class = "container-column gap-small" style = "width:192px; text-transform:uppercase; overflow:hidden">
+						
+					<div class = "text-title-small" style = "text-wrap:nowrap">%student_name-caption%</div>
+					
+					<element data-uid = "student_name"  style = "width:100%" control-edit-plain/>
+				
+				</div>
+				
+				<! -- MOBILE -->
+				<div class = "container-column gap-small" style = "width:192px; text-transform:uppercase; overflow:hidden">
+						
+					<div class = "text-title-small" style = "text-wrap:nowrap">%mobile-caption%</div>
+					
+					<element data-uid = "mobile"  style = "width:100%" control-edit-plain/>
+				
+				</div>
+				
+				<! -- EMAIL -->
+				<div class = "container-column gap-small" style = "width:192px; text-transform:uppercase; overflow:hidden">
+						
+					<div class = "text-title-small" style = "text-wrap:nowrap">%email-caption%</div>
+					
+					<element data-uid = "email"  style = "width:100%" control-edit-plain/>
+				
+				</div>
+			
+						
+			</div>
+				
+				
+				
+			<!-- PRODUCT INFO -->
+			<div class = "container-row gap-medium text-caption-small">
+			
+				<! -- CENTER ID -->
+				<div class = "container-column gap-small" style = "width:192px; text-transform:uppercase; overflow:hidden">
+						
+					<div class = "text-title-small" style = "text-wrap:nowrap">%center_id-caption%</div>
+					
+					<element data-uid = "center_id"  style = "width:100%" control-dropdown-plain/>
+				
+				</div>
+			
+				<! -- PRODUCT -->
+				<div class = "container-column gap-small" style = "width:192px; text-transform:uppercase; overflow:hidden">
+						
+					<div class = "text-title-small" style = "text-wrap:nowrap">%product-caption%</div>
+					
+					<element data-uid = "product"  data-update = "program" style = "width:100%" control-dropdown-plain/>
+				
+				</div>
+				
+				<! -- PROGRAM -->
+				<div class = "container-column gap-small" style = "width:192px; text-transform:uppercase; overflow:hidden">
+						
+					<div class = "text-title-small" style = "text-wrap:nowrap">%program-caption%</div>
+					
+					<element data-uid = "program"  style = "width:100%" control-dropdown-plain/>
+				
+				</div>
+			</div>
+				
+				
+				
+			<!-- CALL INFO -->
+			<div class = "container-row gap-medium text-caption-small">
+			
+				<!-- CALL TYPE -->
+				<div class = "container-column gap-small" style = "width:192px; text-transform:uppercase; overflow:hidden">
+						
+					<div class = "text-title-small" style = "text-wrap:nowrap">%call_type-caption%</div>
+					
+					<element data-uid = "call_type"  style = "width:100%" control-dropdown-plain/>
+				
+				</div>
+			
+				<! -- CALL REASON -->
+				<div class = "container-column gap-small" style = "width:192px; text-transform:uppercase; overflow:hidden">
+						
+					<div class = "text-title-small" style = "text-wrap:nowrap">%call_reason-caption%</div>
+					
+					<element data-uid = "call_reason"  style = "width:100%" control-dropdown-plain/>
+				
+				</div>
+				
+				<! -- INQUIRY CATEGORY -->
+				<div class = "container-column gap-small" style = "width:192px; text-transform:uppercase; overflow:hidden">
+						
+					<div class = "text-title-small" style = "text-wrap:nowrap">%inquiry_category-caption%</div>
+					
+					<element data-uid = "inquiry_category"  style = "width:100%" control-dropdown-plain/>
+				
+				</div>
+				
+				<! -- INQUIRY TYPE -->
+				<div class = "container-column gap-small" style = "width:192px; text-transform:uppercase; overflow:hidden">
+						
+					<div class = "text-title-small" style = "text-wrap:nowrap">%inquiry_type-caption%</div>
+					
+					<element data-uid = "inquiry_type"  style = "width:100%" control-dropdown-plain/>
+				
+				</div>
+			
+			</div>
+
+
+			<!-- NOTES -->
+			<div class = "container-row gap-medium text-caption-small">
+				
+				<div class = "container-column gap-small" style = "width:816px; text-transform:uppercase; overflow:hidden">
+				
+					<div class = "text-title-small" style = "text-wrap:nowrap">%notes-caption%</div>
+					
+					<element data-uid = "notes"  style = "width:100%; height:128px" control-text-plain/>
+				</div>
+				
+			</div>
+		</div>
+		
+		
+		<!-- BOTTOM PANEL: QUESTIONNAIRE -->
+		<div data-uid = "panel-questions" class = "container-column border-rounded padding-medium gap-medium" style = "flex-grow:1;  width:848px; overflow:hidden auto">
+		
+		</div>
+		
+	</div>
+	
+</div>

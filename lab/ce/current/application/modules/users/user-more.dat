@@ -1,0 +1,45 @@
+[products]
+en = "Products"
+roles = "student"
+
+
+[files]
+en = "Files"
+
+
+[placements]
+en = "Placements"
+roles = "student"
+
+
+[classes]
+en = "Lessons"
+roles = "student"
+
+
+[family]
+en = "Family/Company"
+roles = "student"
+
+
+[manages]
+en = "Manages"
+roles = ""
+
+
+[settings]
+en = "Settings"
+
+
+[permissions]
+en = "Permissions"
+
+
+[button book placement]
+en = "BOOK PLACEMENT"
+
+
+[permissions centers]
+en = "Centers"
+
+

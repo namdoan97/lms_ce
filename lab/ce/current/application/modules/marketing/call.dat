@@ -1,0 +1,48 @@
+[more recalls title]
+en = "RE-CALLS LIST"
+
+
+[message noleads]
+en = "NO MORE CONTACTS OR RE-CALLS ARE IN QUEUE"
+
+
+[search button]
+en = "SEARCH"
+
+
+[search placeholder]
+en = "Type a phone number"
+
+
+[search popup title]
+en = "SEARCH BY PHONE NUMBER"
+
+
+[search popup getlead]
+en = "Contact found: <b>$name$</b>. Confirm taking this Contact?"
+
+
+[search popup newlead]
+en = "No lead found. Do you want to create a new Contact with this number?"
+
+
+[search popup list]
+en = "Assign to List"
+
+
+[recall popup title]
+en = "MANUAL RE-CALL"
+
+
+[recall popup text]
+en = "Are you sure you want to process this recall manually?"
+
+
+[more search title]
+en = "SEARCH BY NUMBER"
+
+
+[button next]
+en = "NEXT"
+
+

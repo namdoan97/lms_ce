@@ -1,0 +1,132 @@
+[id-caption]
+en = "CASE ID"
+vn = ""
+
+[course-caption]
+en = "COURSE"
+vn = ""
+
+
+[student_id-caption]
+en = "Student ID"
+vn = ""
+
+[name-caption]
+en = "Student Name"
+vn = ""
+
+[phone_mobile-caption]
+en = "Mobile"
+vn = "Điện thoại di động"
+
+
+
+[student_name-caption]
+en = "Student Name"
+vn = ""
+
+
+[mobile-caption]
+en = "Mobile"
+vn = "Điện thoại di động"
+
+
+[email-caption]
+en = "Email"
+vn = "Email"
+
+
+[center_id-caption]
+en = "Center"
+vn = "Trung tâm"
+
+
+[product-caption]
+en = "Product"
+vn = "Sản phẩm"
+
+
+[program-caption]
+en = "Program"
+vn = "Chương trình"
+
+
+[call_type-caption]
+en = "Call Type"
+vn = "Loại cuộc gọi"
+
+
+[call_reason-caption]
+en = "Call Reason"
+vn = "Lý do gọi"
+
+
+[inquiry_department-caption]
+en = "Inquiry Department"
+vn = "Danh mục yêu cầu"
+
+
+[inquiry_topic-caption]
+en = "Inquiry Topic"
+vn = "Loại yêu cầu"
+
+
+[notes-caption]
+en = "Notes"
+vn = "Ghi chú"
+
+
+[form-caption]
+en = "QUESTIONS"
+
+
+[case caption]
+en = "FOLLOW-UP"
+vn = ""
+
+
+[case item add]
+en = "ADD ACTION"
+vn = ""
+
+
+[popup addaction title]
+en = "Record Case Action"
+vn = ""
+
+
+[popup addaction user]
+en = "Operator"
+vn = ""
+
+
+[popup addaction department]
+en = "Operator's Department"
+vn = ""
+
+
+[popup addaction outcome]
+en = "Outcome"
+vn = ""
+
+
+[popup addaction action]
+en = "What action has been taken?"
+vn = ""
+
+
+[popup addaction record]
+en = "RECORD"
+vn = ""
+
+
+[popup deleteaction title]
+en = "Delete Action"
+vn = ""
+
+
+[popup deleteaction text]
+en = "Are you sure you want to delete this action from the Case Records?"
+vn = ""
+
+

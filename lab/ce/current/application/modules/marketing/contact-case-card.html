@@ -1,0 +1,62 @@
+<div class = "container-column border-rounded shadow-sharp-bottom effect-highlight-outline padding-medium gap-medium" style = "width:512px; background-color:var(--color-white); overflow:hidden; flex-shrink:0">
+
+	<div class = "container-row gap-medium text-title-small" style = "width:100%">
+	
+		<input readonly data-uid = "name" class = "structure-seamless text-title-small" placeholder = "%student_name-caption%" style = "width:50%; text-transform:uppercase; overflow:hidden" />
+		
+		<div class = "container-row gap-small" style = "width:50%; justify-content:space-between; overflow:hidden">
+			<div>%student_id-caption%</div>
+			<input readonly data-uid = "student_id" class = "structure-seamless" style = "text-align: right; width:96px"/>
+		</div>
+		
+	</div>
+	
+	<div data-uid = "section-contacts" class = "container-row gap-medium text-title-small" style = "width:100%; overflow:hidden">
+	
+		<div class = "container-row gap-small" style = "overflow:hidden; width:50%; justify-content:space-between">
+			<div>%call_type-caption%</div>
+			<input readonly data-uid = "call_type" class = "structure-seamless"  style = "text-align: right; width:96px"/>
+		</div>
+		
+		<div class = "container-row gap-small" style = "overflow:hidden; width:50%; justify-content:space-between">
+			<div>%call_reason-caption%</div>
+			<input readonly data-uid = "call_reason" class = "structure-seamless" style = "text-align: right; width:96px"/>
+		</div>
+		
+	</div>
+	
+	<div class = "container-row gap-medium text-title-small" style = "width:100%">
+	
+		<div class = "container-row gap-small" style = "width:50%; justify-content:space-between">
+			<div>%inquiry_department-caption%</div>
+			<input readonly data-uid = "inquiry_department" class = "structure-seamless" style = "text-align: right; width:96px" />
+		</div>
+		
+		<div class = "container-row gap-small" style = "width:50%; justify-content:space-between">
+			<div>%inquiry_topic-caption%</div>
+			<input readonly data-uid = "inquiry_topic" class = "structure-seamless" style = "text-align: right; width:96px" />
+		</div>
+		
+	</div>
+
+
+	
+	<div data-uid = "section-notes" class = "container-column gap-small text-title-small border-rounded padding-small" style = "width:100%; background-color:var(--color-light)">
+	
+		<div style = "text-title-small">%notes-caption%</div>
+	
+		<textarea data-uid = "notes" readonly class = "structure-seamless" style = "width:100%; height:64px"></textarea>
+	
+	</div>
+
+
+	<div data-uid = "creator" class = "container-row gap-medium" style = "display:none; width:100%">
+	
+		<div class = "container-row gap-small border-rounded padding-medium" style = "width:100%; justify-content:flex-end; background-color:var(--color-light)">
+			<div class = "text-title-small">%caption createdby%</div> 
+			<div class = "text-caption-small" data-uid = "creator-name"></div>
+		</div>
+		
+	</div>
+
+</div>

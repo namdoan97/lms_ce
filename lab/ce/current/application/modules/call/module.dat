@@ -1,0 +1,76 @@
+[module]
+en = "CALL"
+vn = ""
+menu-icon = "deskphone"
+
+
+[student_id-caption]
+en = "Student ID"
+vn = ""
+
+
+[student_name-caption]
+en = "Student Name"
+vn = ""
+
+
+[mobile-caption]
+en = "Mobile"
+vn = "Điện thoại di động"
+
+
+[email-caption]
+en = "Email"
+vn = "Email"
+
+
+[center_id-caption]
+en = "Center"
+vn = "Trung tâm"
+
+
+[product-caption]
+en = "Product"
+vn = "Sản phẩm"
+
+
+[program-caption]
+en = "Program"
+vn = "Chương trình"
+
+
+[call_type-caption]
+en = "Call Type"
+vn = "Loại cuộc gọi"
+
+
+[call_reason-caption]
+en = "Call Reason"
+vn = "Lý do gọi"
+
+
+[inquiry_category-caption]
+en = "Inquiry Category"
+vn = "Danh mục yêu cầu"
+
+
+[inquiry_type-caption]
+en = "Inquiry Type"
+vn = "Loại yêu cầu"
+
+
+[notes-caption]
+en = "Notes"
+vn = "Ghi chú"
+
+
+[button call new]
+en = "New Call"
+vn = ""
+
+
+[button call search]
+en = "Search Call"
+vn = ""
+
+

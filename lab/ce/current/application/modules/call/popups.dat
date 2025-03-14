@@ -1,0 +1,30 @@
+[search popup title]
+en = "Search Calls"
+vn = ""
+
+
+[search mode caption]
+en = "Mode"
+vn = ""
+
+
+[search search caption]
+en = "Search"
+vn = ""
+
+
+[newcall confirm title]
+en = "New Call"
+vn = ""
+
+
+[newcall confirm text]
+en = "End the current Call and start a new one?"
+vn = ""
+
+
+[newcall confirm confirm]
+en = "Confirm"
+vn = ""
+
+

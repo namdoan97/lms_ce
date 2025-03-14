@@ -1,0 +1,36 @@
+[survey]
+en = "Survey"
+vn = "Khảo sát"
+type = "outbound"
+
+[midcourse]
+en = "Mid of Course"
+vn = "Giữa khóa"
+type = "outbound"
+
+[endcourse]
+en = "End of Course"
+vn = "Cuối khóa"
+type = "outbound"
+
+[reenroll]
+en = "Re-Enrolled"
+vn = "Đăng ký tiếp tục"
+type = "outbound"
+
+[stopped]
+en = "Stopped"
+vn = "Ngừng học"
+type = "outbound"
+
+[inquiry]
+en = "Inquiry"
+vn = "Yêu cầu"
+type = "inbound"
+
+[complaint]
+en = "Complaint"
+vn = "Phàn nàn"
+type = "inbound"
+
+

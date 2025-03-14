@@ -1,0 +1,56 @@
+[move button move]
+en = "MOVE"
+
+
+[move button cancel]
+en = "CANCEL"
+
+
+[move title]
+en = "Move Appointment"
+
+
+[move text]
+en = "Select a new date and/or time for this appointment"
+
+
+[search title]
+en = "SEARCH"
+
+
+[search subtitle]
+en = "Search appointments up to -+ $days$ days before and after the current date"
+
+
+[search button]
+en = "SEARCH"
+
+
+[noresults title]
+en = "SEARCH"
+
+
+[noresults subtitle]
+en = "No appointments were found"
+
+
+[new button create]
+en = "CREATE"
+
+
+[new title]
+en = "New Appointment"
+
+
+[new text]
+en = ""
+
+
+[delete title]
+en = "Delete Appointment"
+
+
+[delete subtitle]
+en = "Are you sure to delete this appointment? This action can't be undone"
+
+

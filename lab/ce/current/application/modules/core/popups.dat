@@ -1,0 +1,24 @@
+[button ok]
+en = "OK"
+
+
+[button yes]
+en = "YES"
+
+
+[button no]
+en = "NO"
+
+
+[button cancel]
+en = "CANCEL"
+
+
+[button confirm]
+en = "CONFIRM"
+
+
+[button select]
+en = "SELECT"
+
+

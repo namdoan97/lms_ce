@@ -1,0 +1,8 @@
+[inbound]
+en = "Inbound"
+vn = "Cuộc gọi đến"
+
+
+[outbound]
+en = "Outbound"
+vn = "Cuộc gọi đi"

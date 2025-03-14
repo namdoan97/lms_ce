@@ -1,0 +1,182 @@
+<div data-uid = "panel-form" class = "container-column gap-medium" style = "height:100%; width:100%; overflow:hidden">
+
+	<!-- CUSTOMER INFO -->
+	<div data-uid = "section-customer" class = "container-row gap-medium text-caption-small" style = "display:none">
+	
+		<! -- STUDENT CODE -->
+		<div class = "container-column gap-small" style = "width:192px; text-transform:uppercase; overflow:hidden">
+				
+			<div class = "text-title-small" style = "text-wrap:nowrap">%student_id-caption%</div>
+			
+			<element data-uid = "student_id"  style = "width:100%" readonly control-edit-plain />
+		
+		</div>
+		
+		<! -- STUDENT NAME -->
+		<div class = "container-column gap-small" style = "width:192px; text-transform:uppercase; overflow:hidden">
+				
+			<div class = "text-title-small" style = "text-wrap:nowrap">%name-caption%</div>
+			
+			<element data-uid = "name"  style = "width:100%" readonly control-edit-plain />
+		
+		</div>
+		
+		<! -- PHONE NUMBER -->
+		<div class = "container-column gap-small" style = "width:192px; text-transform:uppercase; overflow:hidden">
+				
+			<div class = "text-title-small" style = "text-wrap:nowrap">%phone_mobile-caption%</div>
+			
+			<element data-uid = "phone_mobile"  style = "width:100%" readonly control-edit-plain />
+		
+		</div>
+		
+		<! -- EMAIL -->
+		<div class = "container-column gap-small" style = "width:192px; text-transform:uppercase; overflow:hidden">
+		
+			<div class = "text-title-small" style = "text-wrap:nowrap">%email-caption%</div>
+			
+			<element data-uid = "email"  style = "width:100%" readonly control-edit-plain />
+				
+		</div>
+		
+	</div>
+
+
+
+	<!-- PRODUCT INFO -->
+	<div data-uid = "section-product" class = "container-row gap-medium text-caption-small">
+	
+		<! -- PRODUCT -->
+		<div class = "container-column gap-small" style = "width:192px; text-transform:uppercase; overflow:hidden">
+				
+			<div class = "text-title-small" style = "text-wrap:nowrap">%product-caption%</div>
+			
+			<element data-uid = "product"  data-update = "program" style = "width:100%" control-dropdown-plain/>
+		
+		</div>
+		
+		<! -- PROGRAM -->
+		<div class = "container-column gap-small" style = "width:192px; text-transform:uppercase; overflow:hidden">
+				
+			<div class = "text-title-small" style = "text-wrap:nowrap">%program-caption%</div>
+			
+			<element data-uid = "program"  style = "width:100%" control-dropdown-plain/>
+		
+		</div>
+		
+		<! -- COURSE -->
+		<div class = "container-column gap-small" style = "width:192px; text-transform:uppercase; overflow:hidden">
+				
+			<div class = "text-title-small" style = "text-wrap:nowrap">%course-caption%</div>
+			
+			<element data-uid = "course"  style = "width:100%" control-edit-plain/>
+		
+		</div>
+		
+		<! -- CASE NUMBER -->
+		<div class = "container-column gap-small" style = "width:192px; text-transform:uppercase; overflow:hidden">
+		
+			<div class = "container-row gap-small">
+				<div class = "text-title-small" style = "text-wrap:nowrap">%id-caption%</div>
+				<div data-uid = "link-case" class = "container-row content-centered text-title-small style-clickable fas fa-link"></div>
+			</div>
+			
+			<element data-uid = "id"  style = "width:100%; background-color:transparent; font-weight:bold"; readonly control-edit-plain/>
+				
+		</div>
+		
+	</div>
+		
+		
+		
+	<!-- CALL INFO -->
+	<div data-uid = "section-call" class = "container-row gap-medium text-caption-small">
+	
+		<!-- CALL TYPE -->
+		<div class = "container-column gap-small" style = "width:192px; text-transform:uppercase; overflow:hidden">
+				
+			<div class = "text-title-small" style = "text-wrap:nowrap">%call_type-caption%</div>
+			
+			<element data-uid = "call_type"  style = "width:100%" control-dropdown-plain/>
+		
+		</div>
+	
+		<! -- CALL REASON -->
+		<div class = "container-column gap-small" style = "width:192px; text-transform:uppercase; overflow:hidden">
+				
+			<div class = "text-title-small" style = "text-wrap:nowrap">%call_reason-caption%</div>
+			
+			<element data-uid = "call_reason"  style = "width:100%" control-dropdown-plain/>
+		
+		</div>
+		
+		<! -- INQUIRY DEPARTMENT -->
+		<div class = "container-column gap-small" style = "width:192px; text-transform:uppercase; overflow:hidden">
+				
+			<div class = "text-title-small" style = "text-wrap:nowrap">%inquiry_department-caption%</div>
+			
+			<element data-uid = "inquiry_department"  style = "width:100%" control-dropdown-plain/>
+		
+		</div>
+		
+		<! -- INQUIRY TOPIC -->
+		<div class = "container-column gap-small" style = "width:192px; text-transform:uppercase; overflow:hidden">
+				
+			<div class = "text-title-small" style = "text-wrap:nowrap">%inquiry_topic-caption%</div>
+			
+			<element data-uid = "inquiry_topic"  style = "width:100%" control-dropdown-plain/>
+		
+		</div>
+	
+	</div>
+	
+	
+	<!-- CENTRAL PANEL: SURVEY AND FOLLOWUP -->
+	<div class = "container-column gap-medium" style = "width:100%; flex-grow:1; text-transform:uppercase; overflow:hidden"> 
+		
+		<!-- SURVEY -->
+		<div data-uid = "section-survey" class = "container-column gap-medium" style = "width:100%; flex-grow:1;  overflow:hidden"> 
+		
+			<div class = "text-title-small container-row gap-medium" style = "width:100; flex-shrink:0; text-wrap:nowrap">%form-caption%</div>
+		
+			<div data-uid = "panel-questions" class = "container-column border-rounded gap-medium padding-medium" style = "flex-grow:1;  width:100%; overflow:hidden auto; background-color:var(--color-light)"></div>
+		
+		</div>
+		
+		
+		<!-- ACTIONS -->
+		<div data-uid = "section-actions" class = "container-column gap-medium" style = "width:100%;  max-height:50%; flex-shrink:0; overflow:hidden"> 
+		
+			<div class = "text-title-small container-row gap-medium" style = "width:100%; flex-shrink:0">
+			
+				<div style = "text-wrap:nowrap">%case caption%</div>
+				
+				<div data-uid = "followup-item-add" class = "fas fa-calendar-plus style-clickable"></div>
+				
+			</div>
+		
+			<div data-uid = "panel-case" class = "container-column border-rounded gap-medium padding-medium" style = "flex-grow:1; overflow:hidden auto;  width:100%; background-color:var(--color-light)">
+			
+			</div>
+		
+		</div>
+		
+	</div>
+
+
+	<!-- NOTES -->
+	<div class = "container-column gap-medium" style = "width:100%; text-transform:uppercase; overflow:hidden; flex-shrink:0">
+	
+		<div class = "text-title-small" style = "text-transform:uppercase; text-wrap:nowrap; flex-shrink:0">%notes-caption%</div>
+			
+		<element data-uid = "notes"  style = "width:100%; height:64px; flex-shrink:0" control-text-plain />
+		
+	</div>
+		
+	
+</div>
+	
+	
+
+	
+	

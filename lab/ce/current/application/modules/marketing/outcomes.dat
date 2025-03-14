@@ -1,0 +1,29 @@
+[no]
+en = "Declined"
+vn = "Từ chối"
+color = "color-bad"
+icon = "times-circle"
+
+
+[rec]
+en = "Re-call"
+vn = "gọi sau"
+color = "color-white"
+icon = "phone"
+
+
+[eng]
+en = "Engaged"
+vn = "Hợp tác"
+color = "color-good"
+icon = "clipboard-list"
+
+
+[next]
+en = "Next"
+vn = "Kế tiếp"
+color = "color-dark"
+text = "color-white"
+icon = "arrow-right"
+
+

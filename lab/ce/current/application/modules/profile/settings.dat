@@ -1,0 +1,32 @@
+[password change text]
+en = "Password"
+
+
+[password change action]
+en = "CHANGE"
+
+
+[preferences language text]
+en = "Language"
+
+
+[preferences size text]
+en = "Text Size"
+
+
+[preferences sound text]
+en = "Sound Effects"
+
+
+[preferences music text]
+en = "Music"
+
+
+[account logout text]
+en = "Account"
+
+
+[account logout action]
+en = "LOG OUT"
+
+

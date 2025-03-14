@@ -1,0 +1,72 @@
+[name]
+en = "Name"
+
+
+[center]
+en = "Center"
+
+
+[type]
+en = "Type"
+
+
+[status]
+en = "Status"
+
+
+[firstname]
+en = "First Name"
+
+
+[contact]
+en = "CONTACT PERSON"
+
+
+[position]
+en = "Position"
+
+
+[lastname]
+en = "Last Name"
+
+
+[idnumber]
+en = "Id / Number"
+
+
+[taxcode]
+en = "Tax Code"
+
+
+[country]
+en = "Country"
+
+
+[city]
+en = "City"
+
+
+[province]
+en = "Province"
+
+
+[address]
+en = "Address"
+
+
+[email]
+en = "Email"
+
+
+[mobile]
+en = "Mobile"
+
+
+[manager_id]
+en = "Managed By"
+
+
+[notes]
+en = "Notes"
+
+

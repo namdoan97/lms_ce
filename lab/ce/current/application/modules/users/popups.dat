@@ -1,0 +1,48 @@
+[select list title]
+en = "Select a User"
+
+
+[select list button]
+en = "SELECT"
+
+
+[placeholder firstname]
+en = "First Name"
+
+
+[placeholder lastname]
+en = "Last Name"
+
+
+[placeholder email]
+en = "Email"
+
+
+[placeholder mobile]
+en = "Mobile"
+
+
+[placeholder id]
+en = "ID"
+
+
+[select family title]
+en = "Assign to Family or Company"
+
+
+[family removeuser title]
+en = "Remove User"
+
+
+[family removeuser text]
+en = "Are you sure you want to remove <b>$name$</b> from this family/company?"
+
+
+[createuser role title]
+en = "CREATE NEW USER"
+
+
+[createuser role subtitle]
+en = "Select User Role"
+
+

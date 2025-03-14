@@ -1,0 +1,40 @@
+[delete title]
+en = "DELETE MESSAGE"
+
+
+[delete text]
+en = "Are you sure you want to delete this message? It will not be possible to undo this action, or recover the deleted message"
+
+
+[button send]
+en = "SEND"
+
+
+[message subject]
+en = "Subject"
+
+
+[message template]
+en = "Template"
+
+
+[message type]
+en = "Type"
+
+
+[message expiration]
+en = "Expiration"
+
+
+[template placeholder]
+en = "Message Template"
+
+
+[messages send title]
+en = "MASS MESSAGING"
+
+
+[messages send text]
+en = "Are you sure to send this message to <b>$count$</b> users?"
+
+

@@ -1,0 +1,24 @@
+[walkin]
+en = "Walk-In"
+
+
+[tmk]
+en = "Telemarketing"
+
+
+[web]
+en = "Web Lead"
+
+
+[personal]
+en = "Personal"
+
+
+[friend]
+en = "Friend"
+
+
+[internal]
+en = "Internal"
+
+

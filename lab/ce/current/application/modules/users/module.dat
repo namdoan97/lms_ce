@@ -1,0 +1,10 @@
+[module]
+menu-icon = "users"
+en = "USERS"
+page = "100"
+
+
+[module header title]
+en = "USERS"
+
+

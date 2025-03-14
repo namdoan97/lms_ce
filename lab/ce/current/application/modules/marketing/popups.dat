@@ -1,0 +1,293 @@
+[upload options separator]
+en = "Separator"
+
+
+[upload options firstrow]
+en = "First row"
+
+
+[upload options tag]
+en = "Import Tag"
+
+
+[upload firstrow data]
+en = "Data"
+
+
+[upload firstrow fields]
+en = "Fields"
+
+
+[upload field student_id]
+en = "Student ID"
+
+
+[upload field phone_mobile]
+en = "Mobile"
+
+
+[upload field phone_landline]
+en = "Landline"
+
+
+[upload field email]
+en = "Email"
+
+
+[upload field name]
+en = "Name"
+
+
+[upload field province]
+en = "Province"
+
+
+[upload field city]
+en = "City"
+
+
+[upload field postcode]
+en = "Postcode"
+
+
+[upload field address]
+en = "Address"
+
+
+[upload field center]
+en = "Center"
+
+[upload field course]
+en = "Course"
+
+[upload field notes]
+en = "Notes"
+
+
+[upload button upload]
+en = "UPLOAD"
+
+
+[upload confirm title]
+en = "LEADS UPLOAD"
+
+
+[upload confirm text]
+en = "<b>$count$</b> Leads will be loaded into list <b>$name$</b>, with import code <b>'$code$'</b>. The action can't be undone. Confirm to proceed?"
+
+
+[upload wait title]
+en = "LEADS UPLOAD"
+
+
+[upload wait text]
+en = "Please wait while the contacts are loaded into the list. <b>Do not close this page</b>."
+
+
+[newlist title]
+en = "NEW LIST"
+
+
+[newlist text]
+en = "CREATE"
+
+
+[newlist button create]
+en = "CREATE"
+
+
+[newlist placeholder name]
+en = "New list Name"
+
+
+[newlist caption name]
+en = "Name"
+
+
+[newlist caption center]
+en = "Center"
+
+
+[renamelist title]
+en = "RENAME LIST"
+
+
+[renamelist exists]
+en = "A list with this name already exists"
+
+
+[transferlist title]
+en = "TRANSFER LIST"
+
+
+[transferlist from]
+en = "From"
+
+
+[transferlist to]
+en = "To"
+
+
+[transferlist confirm]
+en = "The list <b>$name$</b> and all its leads will be transfered from <b>$from$</b> to <b>$to$</b>. This action can't be undone. Confirm?"
+
+
+[transferlist transfer]
+en = "TRANSFER"
+
+
+[moveleads title]
+en = "MOVE LEADS"
+
+
+[moveleads from]
+en = "From"
+
+
+[moveleads to]
+en = "To"
+
+
+[moveleads amount]
+en = "Leads to transfer"
+
+
+[moveleads virgin]
+en = "Virgin Only"
+
+
+[moveleads confirm]
+en = "<b>$amount$</b> contacts will be transferredd from list <b>$from$</b> to list <b>$to$</b>. This action can't be undone. Confirm?"
+
+
+[moveleads move]
+en = "MOVE"
+
+
+[cleanlist title]
+en = "CLEANUP LEADS"
+
+
+[cleanlist text]
+en = "All the <b>$leads_count$</b> contacts in list <b>$name$</b> will be reset and released from their operators. This action can't be undone. Confirm?"
+
+
+[cleanlist cleanup]
+en = "CLEANUP"
+
+
+[deletelist cant]
+en = "You can't delete this list because it's not empty. Please transfer the list's leads to other lists before performing this action"
+
+
+[deletelist confirm]
+en = "Confirm to delete list <b>$name$</b>? This action can't be undone"
+
+
+[deletelist done]
+en = "The list <b>$name$</b> has been deleted"
+
+
+[deletelist title]
+en = "DELETE LIST"
+
+
+[deletelist delete]
+en = "DELETE"
+
+
+[newcontact outcome title]
+en = "CONFIRM CONTACT OUTCOME"
+
+
+[newcontact outcome text]
+en = "Confirm this contact as <b>'$outcome$'</b>?"
+
+
+[newcontact outcome confirm]
+en = "CONFIRM"
+
+
+[newcontact black text]
+en = "This lead will be black-listed and <u>will be excluded forever from all activities including cleanups</u>. To confirm the action type the lead id <b>$lead_id$</b>."
+
+
+[newcontact no text]
+en = "Confirm that the contact is not interested? The contact will be available again in <b>$days$ days</b>."
+
+
+[newcontact rec text]
+en = "Set a date and time to call back this contact"
+
+
+[newcontact busy text]
+en = "The contact will be called back in <b>$minutes$ minutes</b>."
+
+
+[newcontact next text]
+en = "Skip this call?"
+
+
+[newcontact app text]
+en = "Set a date and time for the Appointment"
+
+
+[newcontact app count]
+en = "Appointments booked at <b>$center$</b> in this timeslot: <b>$appointments$</b>."
+
+
+[newcontact notes placeholder]
+en = "Notes"
+
+
+[nextcontact title]
+en = "Call"
+
+
+[nextcontact text]
+en = "Loading Next Contact..."
+
+
+[search lead name]
+en = "Name"
+
+
+[search lead email]
+en = "Email"
+
+
+[search lead phone_mobile]
+en = "Mobile"
+
+
+[search lead student_id]
+en = "Student ID"
+
+
+[search lead title]
+en = "Search Student"
+
+
+[search lead button]
+en = "SELECT"
+
+
+[create lead title]
+en = "Create New Student"
+
+[create lead id]
+en = "Student ID"
+
+[create lead confirm]
+en = "Are you sure you want to create a new student with ID $id$?"
+
+[create lead exists]
+en = "A student with ID $id$ already exists. Opening"
+
+
+[link copied title]
+en = "Case Link Copied to Clipboard"
+
+
+
+

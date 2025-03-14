@@ -1,0 +1,58 @@
+[lead name]
+en = "Name"
+
+
+[lead student_id]
+en = "Student ID"
+
+
+[lead phone_mobile]
+en = "Mobile"
+
+
+[lead center]
+en = "Center"
+
+[lead course]
+en = "Course"
+
+[lead email]
+en = "Email"
+
+
+[lead province]
+en = "Province"
+
+
+[lead city]
+en = "City"
+
+
+[lead postcode]
+en = "Postcode"
+
+
+[lead address]
+en = "Address"
+
+
+[lead notes]
+en = "Notes"
+
+
+[lead consent]
+en = "Consent"
+
+
+[lead history]
+en = "Contact History"
+
+
+[leads list]
+en = "Lead List"
+
+
+[warning recall]
+en = "ATTENTION: RE-CALL"
+
+

@@ -1,0 +1,13 @@
+[module]
+menu-icon = "envelope"
+en = "MESSAGES"
+
+
+[module header title]
+en = "MESSAGES"
+
+
+[messages none]
+en = "No messages to show"
+
+

@@ -1,0 +1,25 @@
+[tiny]
+en = "Tiny"
+zoom = "0.5"
+
+
+[small]
+en = "Small"
+zoom = "0.75"
+
+
+[normal]
+en = "Normal"
+zoom = ""
+
+
+[large]
+en = "Large"
+zoom = "1.5"
+
+
+[huge]
+en = "Huge"
+zoom = "2"
+
+
