@@ -430,7 +430,7 @@ function Marketing_Contact_Card(contact)
  }
   
   
- for(var field of ["call_type", "call_reason", "inquiry_department", "inquiry_topic"])
+ for(var field of ["call_type", "call_reason", "inquiry_topic"])
  {
   var data    = Core_Data_Page("marketing/" + field);
   var item    = data[contact[field]] || {};
@@ -438,6 +438,12 @@ function Marketing_Contact_Card(contact)
   var input   = UI_Element_Find(element, field);
   input.value = UI_Language_Object(item);
  }
+
+ var data    = Core_Config("departments");
+ var item    = data[contact["inquiry_department"]] || {};
+ 
+ var input   = UI_Element_Find(element, "inquiry_department");
+ input.value = UI_Language_Object(item);
  
  
  return element;
