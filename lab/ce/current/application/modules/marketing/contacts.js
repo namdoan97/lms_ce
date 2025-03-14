@@ -314,7 +314,7 @@ async function Marketing_Contact_RecordAction(event)
    var data     = {};
    data["url"]  = Client_Location_Current() + "?autologin=1&framework=null&module=embed&page=casefollowup&case_id=" + id + "&action_id=" + action_id;
    
-   Core_Service("sendmail", {from, to, subject, template, data});
+   //Core_Service("sendmail", {from, to, subject, template, data});
    
    
    
@@ -327,6 +327,8 @@ async function Marketing_Contact_RecordAction(event)
      
    // CLOSE
    await UI_Popup_Close(popup);
+
+   Core_State_Set("marketing",["follow-up","action-default"],false);
    
    // FIND THE NEW ITEM AND FLASH IT
    var element = Document_Element_FindChild(container, "actionid", action_id, ["recurse"]);
@@ -334,7 +336,13 @@ async function Marketing_Contact_RecordAction(event)
   }
  }
 
- popup = await UI_Popup_Create({content, title}, [button], "flexi", {open:false, escape:true});
+ var escape = () => {
+  var action     = UI_Element_Find(popup, "action").value;
+  Core_State_Set("marketing",["follow-up","action-default"],action);
+  UI_Popup_Close(popup);
+ }
+
+ popup = await UI_Popup_Create({content, title}, [button], "flexi", {open:false, escape});
  
  // DEFAULT USERNAME
  var user = await User_Read(true);
@@ -349,6 +357,11 @@ async function Marketing_Contact_RecordAction(event)
  var select   = UI_Element_Find(popup, "department");
  Document_Select_AddOption(select, "", "");
  UI_Select_FromConfig(select, "departments", true);
+
+ // ACTION 
+ var action = UI_Element_Find(popup,"action");
+ var actionValue = Core_State_Get("marketing",["follow-up","action-default"],false);
+ if(actionValue) action.value = actionValue;
  
  // OUTCOME SELECT
  var select   = UI_Element_Find(popup, "outcome");
