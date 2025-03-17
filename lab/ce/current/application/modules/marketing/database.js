@@ -218,12 +218,19 @@ async function Marketing_Database_ListLeads()
  }, 
  "marketing/lead-fields", false, false, {export_fields:"student_id,phone_mobile,email,name", operations:{}});
  
- 
+ // Change order from name to id
+ // await Database_View_Query(display,
+ // {		
+  // fields : "student_id,phone_mobile,email,name",
+  // list_id: Core_State_Get("marketing", ["database", "selected-list", "id"], -1),
+  // order  : "name",
+ // }); 
+
  await Database_View_Query(display,
  {		
   fields : "student_id,phone_mobile,email,name",
   list_id: Core_State_Get("marketing", ["database", "selected-list", "id"], -1),
-  order  : "name",
+  order  : "id",
  }); 
 
 
@@ -548,6 +555,16 @@ async function Marketing_Database_UploadLeads()
 	}
    }
   }
+
+  // CHECK LINES HEADER AND AUTO DELETE
+  var headers = ["Centre","Student code","Student name","Project ID","Teacher/TA Name","Owner name","Actual Start Date","Actual End Date"];
+  var del = false;
+  
+  lines[0].forEach(tk => {
+    if(headers.includes(tk)) del = true;
+  });
+
+  if(del) Array_Element_DeleteAt(lines, 0);
    
 
   // UPDATE FIELDS SELECTORS

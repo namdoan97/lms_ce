@@ -314,7 +314,7 @@ async function Marketing_Contact_RecordAction(event)
    var data     = {};
    data["url"]  = Client_Location_Current() + "?autologin=1&framework=null&module=embed&page=casefollowup&case_id=" + id + "&action_id=" + action_id;
    
-   //Core_Service("sendmail", {from, to, subject, template, data});
+   Core_Service("sendmail", {from, to, subject, template, data});
    
    
    
@@ -327,7 +327,7 @@ async function Marketing_Contact_RecordAction(event)
      
    // CLOSE
    await UI_Popup_Close(popup);
-
+   
    Core_State_Set("marketing",["follow-up","action-default"],false);
    
    // FIND THE NEW ITEM AND FLASH IT
@@ -337,9 +337,9 @@ async function Marketing_Contact_RecordAction(event)
  }
 
  var escape = () => {
-  var action     = UI_Element_Find(popup, "action").value;
-  Core_State_Set("marketing",["follow-up","action-default"],action);
-  UI_Popup_Close(popup);
+	var action = UI_Element_Find(popup, "action").value;
+	Core_State_Set("marketing",["follow-up","action-default"],action);
+	UI_Popup_Close(popup);
  }
 
  popup = await UI_Popup_Create({content, title}, [button], "flexi", {open:false, escape});
@@ -357,7 +357,7 @@ async function Marketing_Contact_RecordAction(event)
  var select   = UI_Element_Find(popup, "department");
  Document_Select_AddOption(select, "", "");
  UI_Select_FromConfig(select, "departments", true);
-
+ 
  // ACTION 
  var action = UI_Element_Find(popup,"action");
  var actionValue = Core_State_Get("marketing",["follow-up","action-default"],false);
@@ -425,7 +425,7 @@ function Marketing_Contact_SelectData(select, page)
 
 
 
-function Marketing_Contact_Card(contact)
+async function Marketing_Contact_Card(contact)
 {
  var element = UI_Element_Create("marketing/contact-case-card", contact, {language:"marketing/case"});
  
@@ -452,12 +452,11 @@ function Marketing_Contact_Card(contact)
   input.value = UI_Language_Object(item);
  }
 
- var data    = Core_Config("departments");
- var item    = data[contact["inquiry_department"]] || {};
+ var data = Core_Config("departments");
+ var item = data[contact["inquiry_department"]] || {};
  
- var input   = UI_Element_Find(element, "inquiry_department");
+ var input = UI_Element_Find(element, "inquiry_department");
  input.value = UI_Language_Object(item);
- 
  
  return element;
 }
