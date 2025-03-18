@@ -267,6 +267,10 @@ function Marketing_Leads_Upload($list_id = -1, $leads = [], $assign = [], $creat
 
  
 
+ $order_id = 0;
+ // CHECK EXIST DATA LIST
+ $check = SQL_Query("SELECT COUNT(id) as count FROM marketing_leads WHERE list_id = $list_id",$db);
+ if(count($check)) $order_id = intval($check[0]["count"]);
 
  // PREPARE QUERIES
  foreach($leads as &$lead)
@@ -284,11 +288,14 @@ function Marketing_Leads_Upload($list_id = -1, $leads = [], $assign = [], $creat
    array_push($update, "$field = $value");
   }
   $values = implode(", ", $values);
+
+  $order_id = $order_id + 1;
+  array_push($update, "order_id = $order_id");
   
   array_push($update, "list_id = $list_id");
   $update = implode(", ", $update);
    
-  $lead = "INSERT INTO marketing_leads (list_id, creation_date,  $query_fields) VALUES ($list_id, $creation_date, $values) ON DUPLICATE KEY UPDATE $update";
+  $lead = "INSERT INTO marketing_leads (list_id, creation_date,  $query_fields , order_id) VALUES ($list_id, $creation_date, $values, $order_id) ON DUPLICATE KEY UPDATE $update";
  }
 
  //return $leads;
@@ -297,7 +304,7 @@ function Marketing_Leads_Upload($list_id = -1, $leads = [], $assign = [], $creat
  // INSERT
  $db->beginTransaction();
  
- foreach($leads as $lead)
+ foreach($leads as &$lead)
  {
   SQL_Query($lead, $db);
  }

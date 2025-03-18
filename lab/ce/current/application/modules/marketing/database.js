@@ -207,7 +207,7 @@ async function Marketing_Database_ListLeads()
  UI_Element_Find("panel-list-actions").style.display = "flex";
  
  // CREATE LEADS TABLE 
- var pagerows  = 30;//Module_Config("users", "page"); 
+ var pagerows  = Module_Config("users", "page"); 
  
  var display  = Database_View_Create("Marketing_Leads_ByList", pagerows, 
  {
@@ -230,7 +230,7 @@ async function Marketing_Database_ListLeads()
  {		
   fields : "student_id,phone_mobile,email,name",
   list_id: Core_State_Get("marketing", ["database", "selected-list", "id"], -1),
-  order  : "id",
+  order  : "order_id",
  }); 
 
 
@@ -518,7 +518,7 @@ async function Marketing_Database_UploadLeads()
  
  var data  = await Storage_File_ReadText(files[0]);
  
-
+ var deletedFR = false;
  
  // FUNCTION UPDATE
  var update =
@@ -534,6 +534,7 @@ async function Marketing_Database_UploadLeads()
   
   if(firstrow == "fields" && lines.length > 0)
   {
+   deletedFR = true;
    Array_Element_DeleteAt(lines, 0);
   }
   
@@ -592,6 +593,8 @@ async function Marketing_Database_UploadLeads()
    }
   }
 
+  if(!deletedFR)
+  Array_Element_DeleteAt(lines, 0);
 
   // DISPLAY SAMPLE
   var container       = UI_Element_Find(popup, "sample");
@@ -629,7 +632,7 @@ async function Marketing_Database_UploadLeads()
   var list     = lists[list_id];
   
   // OTHER UPLOAD PARAMETERS
-  var leads    = lines;
+  var leads    = lines.filter(lead => { if(lead.join("").length > 0) return true; else return false });
   var code     = UI_Element_Find(popup, "input-tag").value;
   
 

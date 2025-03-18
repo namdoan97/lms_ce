@@ -121,7 +121,7 @@ async function Database_View_Query(display, search)
   var stats    = data.pop();
   var count    = stats["count"];
   var pagesize = Module_Config("users", "page");
-  var pages    = Math.floor(count / pagesize);
+  var pages    = Math.ceil(count / pagesize);
   
   view["count"] = count;
   view["pages"] = pages;  
