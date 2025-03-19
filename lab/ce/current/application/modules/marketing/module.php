@@ -857,7 +857,7 @@ function Marketing_Call_GetLead($operator_id = -1, $fields = "*", $options = [])
   {
    // SELECT RANDOM FROM LIST
    $list_id = $operator["marketing_list"];
-    $leads   = SQL_Query("SELECT $fields FROM marketing_leads WHERE (list_id = $list_id) AND (operator_id IS NULL) AND (date_nouse < $date) AND (outcome_last IS NULL OR (outcome_last <> 'rec' AND outcome_last <> 'eng')) LIMIT 1", $db);
+    $leads   = SQL_Query("SELECT $fields FROM marketing_leads WHERE (list_id = $list_id) AND (operator_id IS NULL) AND (date_nouse < $date) AND (outcome_last IS NULL OR (outcome_last <> 'rec' AND outcome_last <> 'eng')) ORDER BY order_id  LIMIT 1", $db);
   
    // FOUND ONE? ASSIGN IT AND RETURN IT  
    if(count($leads) > 0)
