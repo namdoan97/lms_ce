@@ -314,7 +314,8 @@ async function Marketing_Contact_RecordAction(event)
    var data     = {};
    data["url"]  = Client_Location_Current() + "?autologin=1&framework=null&module=embed&page=casefollowup&case_id=" + id + "&action_id=" + action_id;
    
-   Core_Service("sendmail", {from, to, subject, template, data});
+   var mailsent = await Core_Service("sendmail", {from, to, subject, template, data});
+   console.log(mailsent);
    
    
    

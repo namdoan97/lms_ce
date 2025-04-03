@@ -2117,8 +2117,9 @@ async function Request_Post(url, data, type, header)
  }
  
  var response = await fetch(url, config);
+ console.log("response:",response);
  var data     = await Request_Response(response, type);
- 
+ console.log("data:",data);
  return data;
 }
 

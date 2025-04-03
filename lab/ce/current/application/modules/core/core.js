@@ -137,7 +137,8 @@ async function Core_Service(service, params, options = {type:"json"})
  
  // CALL
  var response = await Request_Post(url, params, options["type"]);
- 
+ console.log(response);
+
  // RETURN
  return response;
 }
