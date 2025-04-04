@@ -39,6 +39,17 @@ async function Marketing_Contact_DisplayCase(id, options = {})
    UI_Element_Find(panel, field).value = lead[field];
   }
  }
+
+ // DELETE CONTACT BUTTON
+ if(User_Role() == "ceman")
+ {
+  var buttonDelete = UI_Element_Find(panel,"delete-button");
+  buttonDelete.style.display = "inherit";
+  buttonDelete.onclick = async (e) => {
+    var id = Core_State_Get("marketing", "display-contact-id");
+    await Marketing_Contacts_CaseDelete(id)
+  }
+ }
  
  
  // CENTER
@@ -515,7 +526,42 @@ async function Marketing_Contacts_CasePopup(id)
  
   var popup = await UI_Popup_Create({content}, [], "flexi", {open:false, escape:true, onclose});
   await UI_Popup_Show(popup);
+
+  Core_State_Set("marketing","display-contact-popup",popup);
  });
 
  return promise; 
+}
+
+
+async function Marketing_Contacts_CaseDelete(id) {
+  var confirm = await UI_Popup_Confirm(false, UI_Language_String("marketing/popups","confirm message delete"), "resources/images/cover-alert.jpg");
+  if(!confirm) return;
+ 
+  // DELETE
+  await Core_Api("Marketing_Contact_Delete", {id});
+  
+  // RELOAD CONTACT 
+  var module = Core_State_Get("marketing","page");
+  switch (module) {
+    case "call":
+      var page  = Core_State_Get("marketing", "submodule"); 
+      var container = UI_Element_Find(page, "panel-call");
+      var lead_id = parseInt(Core_State_Get("marketing",["display-contact-data","lead_id"],false));
+      if(lead_id)
+      {
+        var operator_id = User_Id();
+        await Core_Api("Marketing_Call_AssignLead",{operator_id, lead_id})
+        Marketing_Call_DisplayLead(-1, container, {data:true, history:true, outcome:true});
+        UI_Element_Find(page,"more-content").innerHTML = "";
+      } 
+
+      break;
+    case "cases":
+      var popup = Core_State_Get("marketing","display-contact-popup",popup);
+      UI_Popup_Close(popup);
+
+      Marketing_Cases();
+      break;
+  }
 }
