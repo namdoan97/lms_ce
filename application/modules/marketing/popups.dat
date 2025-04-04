@@ -288,6 +288,13 @@ en = "A student with ID $id$ already exists. Opening"
 [link copied title]
 en = "Case Link Copied to Clipboard"
 
+[engaged contact text]
+en = "Engaged this call ?"
+
+[confirm message delete]
+en = "Confirm that the contact will be deleted"
+vn = "Xác nhận rằng liên hệ sẽ bị xóa" 
+
 
 
 

@@ -1216,6 +1216,16 @@ function Marketing_Contact_Read($id, $case = false, $lead = false)
 }
 
 
+function Marketing_Contact_Delete($id)
+{
+ $db = Core_Database_Open(); 
+ 
+ SQL_Query("DELETE FROM marketing_contacts WHERE id = $id", $db);
+ 
+ SQL_Close($db);
+}
+
+
 function Marketing_Contact_RecordAction($id, $user, $department, $action, $outcome)
 {
   $db = Core_Database_Open(); 

@@ -493,6 +493,12 @@ async function Marketing_Call_SetOutcome(event)
   
   // ENGAGED
   case "eng": 
+
+	var title   = "";
+	var text    = UI_Language_String("marketing/popups", "engaged contact text");
+	var confirm = await UI_Popup_Confirm(title, text);
+	
+	if(!confirm) return;
   
      // RECORD OUTCOME
 	 var date_nouse  = Date_Add_Days(Date_Now(), 365);
