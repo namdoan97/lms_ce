@@ -7,10 +7,10 @@
 
 :root
 {
- --color-paper:          #fafafa;   
- --color-light:          #faf7f2;        
- --color-medium:         #f1eae1;
- --color-dark:           #c4bcb2;
+   --color-paper: #fff;
+    --color-light: #f3f3f6;
+    --color-medium: #ededf1;
+    --color-dark: #ccd;   
  
  --color-alt-1:          #f8f5f0;
  --color-alt-2:          #d9d3cb;
@@ -50,7 +50,7 @@
  --color-wheel-14:       #ECE5CE;
  --color-wheel-15:       #F1D4AF;
  
- --shadow-sharp-bottom:  0px 5px  10px 0px rgba(50, 50, 50, 0.3);
+ --shadow-sharp-bottom:  0px 0px 7px -3px #ccc;
  --shadow-sharp-top:     0px -5px 10px 0px rgba(50, 50, 50, 0.3);
  --shadow-sharp-right:   11px 4px 23px -8px rgba(0,0,0,0.76);
  --shadow-soft-bottom:   0px 0px 121px -3px rgba(0,0,0,0.47); 
@@ -395,19 +395,19 @@
 
 .gap-small
 {
- gap: 8px;
+ gap: 6px;
 }
 
 
 .gap-medium
 {
- gap: 16px;
+ gap: 14px;
 }
 
 
 .gap-large
 {
- gap: 32px;
+ gap: 28px;
 }
 
 
