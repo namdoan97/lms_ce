@@ -63,6 +63,11 @@ en = "Course"
 [upload field notes]
 en = "Notes"
 
+[upload field owner_name]
+en = "Owner name"
+
+[upload field teachers_tas_name]
+en = "Teacher/TA name"
 
 [upload button upload]
 en = "UPLOAD"
