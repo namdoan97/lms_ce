@@ -2,3 +2,4 @@
 
 lab/ce/current/partners/default/system.cfg
 partners/default/system.cfg
+services/sendmail/service.cfg
