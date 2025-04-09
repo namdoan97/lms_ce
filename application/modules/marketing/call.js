@@ -282,6 +282,23 @@ async function Marketing_Call_DisplayLead(operator_id, container, options = {dat
     var value = element.value;
     
     Core_Api("Marketing_Lead_Update", {id, field, value});
+
+    // AUTO UPDATE CONTACT WHEN CHANGE CENTER AND COURSES
+    if(["center","course"].includes(field))
+    {
+      var container       = UI_Element_Find("more-content");
+      var panelCheck = UI_Element_Find(container,"panel-form");
+      if(panelCheck)
+      {
+        var contact_id = panelCheck.dataset.contact_id;
+        if(contact_id) 
+        {
+          var display         = await Marketing_Contact_DisplayCase(contact_id);
+          container.innerHTML = "";
+          container.appendChild(display)
+        }
+      }
+    }
    }	  
   }
   

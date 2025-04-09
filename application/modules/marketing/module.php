@@ -330,6 +330,10 @@ function Marketing_Lead_Update($id, $field, $value)
  
  $value = SQL_Format($value, $db);
  SQL_Query("UPDATE marketing_leads SET $field = $value WHERE id = $id", $db);
+
+ // AUTO UPDATE marketing_contacts WHEN CHANGE CENTER OR COURSE
+ if(in_array($field,["center","course"]))
+  SQL_Query("UPDATE marketing_contacts SET $field = $value WHERE lead_id = $id", $db);
  
  SQL_Close($db); 
 }

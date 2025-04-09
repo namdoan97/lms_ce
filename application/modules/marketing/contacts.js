@@ -288,6 +288,14 @@ async function Marketing_Contact_RecordAction(event)
 {
  var id      = Core_State_Get("marketing", "display-contact-id");
  var data    = Core_State_Get("marketing", "display-contact-data", {});
+
+ // CHECK EXIST CONTACT COURSE AND CENTER
+ if(!data.center)
+ {
+  var text    = UI_Language_String("marketing/popups", "alert miss center");
+  await UI_Popup_Alert("", text);
+  return;
+ }
 	
  var content = UI_Element_Create("marketing/popup-case-addaction", {}, {language:"marketing/case"});
  var title   = UI_Language_String("marketing/case", "popup addaction title");

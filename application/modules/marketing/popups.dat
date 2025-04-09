@@ -300,6 +300,10 @@ en = "Engaged this call ?"
 en = "Confirm that the contact will be deleted"
 vn = "Xác nhận rằng liên hệ sẽ bị xóa" 
 
+[alert miss center]
+en = "Please update center name before add follow-up to make sure center can receive email."
+vn = "Vui lòng cập nhật tên trung tâm trước khi thêm thông tin theo dõi để đảm bảo trung tâm có thể nhận được email."
+
 
 
 
