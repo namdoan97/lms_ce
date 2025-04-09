@@ -78,13 +78,13 @@ $toList = explode(",", $toList);
 
 foreach($toList as $key=>$to)
 {
- //$mail->addAddress(trim($to), trim($to));
+ $mail->addAddress(trim($to), trim($to));
 }
-$mail->addAddress('thanhtran@ilavietnam.edu.vn', 'Thanh');
+//$mail->addAddress('thanhtran@ilavietnam.edu.vn', 'Thanh');
 $mail->addCC('ce@ilavietnam.edu.vn', 'CE Group');
 $mail->addCC('todd@ilavietnam.edu.vn', 'Todd');
 $mail->addCC('trungnguyen@ilavietnam.edu.vn', 'Trung');
-$mail->Subject = 'Testing-'.$subject;
+$mail->Subject = $subject;
 $mail->Body    = $html;
                 
 

@@ -339,6 +339,15 @@ function Date_Format(date, locale = "en-US", format = "full", options = {})
 	  month:   "short", 
 	 }  
    break;
+   
+   case "date-short":
+     var config =
+	 {
+	  day:     "numeric", 
+	  month:   "short", 
+	  year:    "numeric"
+	 }  
+   break;
   
    case "day-weekday":
 	var config =
@@ -6181,8 +6190,9 @@ async function Request_Post(url, data, type, header)
  }
  
  var response = await fetch(url, config);
+ console.log("response:",response);
  var data     = await Request_Response(response, type);
- 
+ console.log("data:",data);
  return data;
 }
 
@@ -6333,6 +6343,30 @@ async function Storage_File_Read(source, options = {})
  
   reader.source = source;
   reader.readAsDataURL(source);
+ });
+ 
+ return promise;
+}
+
+
+
+
+async function Storage_File_ReadText(source, options = {})
+{
+ var promise = new Promise((resolve, reject) =>
+ {
+  var reader = new FileReader();
+  
+  reader.onloadend = 
+  function() 
+  {
+   var data = reader.result;
+   
+   resolve(data);  
+  }
+ 
+  reader.source = source;
+  reader.readAsText(source, 'UTF-8');
  });
  
  return promise;
@@ -7853,7 +7887,8 @@ async function Core_Service(service, params, options = {type:"json"})
  
  // CALL
  var response = await Request_Post(url, params, options["type"]);
- 
+ console.log(response);
+
  // RETURN
  return response;
 }
@@ -8904,8 +8939,10 @@ function UI_Value_FromDatapage(element, page, value)
 
 
 
-function UI_Select_FromConfig(select, config)
+function UI_Select_FromConfig(select, config, clear = false)
 {
+ if(clear) select.innerHTML = "";
+ 
  var data = Core_Config(config);
  
  for(var key in data)
@@ -10219,6 +10256,8 @@ function UI_Table_Row(table, config = {}, onclick)
   row.onclick = 
   function(event)
   {
+   console.log("row clicked");
+   
    var row   = event.currentTarget;
    var table = row.parentElement;
    
@@ -12388,7 +12427,7 @@ async function Database_View_Query(display, search)
   var stats    = data.pop();
   var count    = stats["count"];
   var pagesize = Module_Config("users", "page");
-  var pages    = Math.floor(count / pagesize);
+  var pages    = Math.ceil(count / pagesize);
   
   view["count"] = count;
   view["pages"] = pages;  
@@ -12569,6 +12608,99 @@ async function Database_View_Query(display, search)
   container.appendChild(element);
  }
  
+}// -----------------------------------------------------------------------------------------------//
+//                                                                                                //
+//                                      F O L L O W U P                                           //
+//                                                                                                //
+// -----------------------------------------------------------------------------------------------//
+
+
+async function Embed_Casefollowup()
+{
+ 
+ var case_id   = Client_Location_Parameter("case_id");
+ var action_id = Client_Location_Parameter("action_id");
+ 
+ var page      = Module_Page_Body();
+ var panel     = UI_Element_Find(page, "display");
+ var display   = await Marketing_Contact_DisplayCase(case_id, {customer:true});
+ 
+ 
+ // DISABLE CUSTOMER SECTION
+ /*
+ var section    = UI_Element_Find(display, "section-customer");
+ var elements  = Document_Element_Children(section, true);
+ for(var element of elements)
+ {
+  var uid = Document_Element_GetData(element, "uid", false);
+  if(uid) Document_Element_Disable(element, "style-disabled");
+ }
+ */
+ 
+ // DISABLE PRODUCT EDITING
+ var section    = UI_Element_Find(display, "section-product");
+ var elements  = Document_Element_Children(section, true);
+ for(var element of elements)
+ {
+  var uid = Document_Element_GetData(element, "uid", false);
+  if(uid) Document_Element_Disable(element, "style-disabled");
+ }
+ 
+ 
+ // DISABLE CALL EDITING
+ var section    = UI_Element_Find(display, "section-call");
+ var elements  = Document_Element_Children(section, true);
+ for(var element of elements)
+ {
+  var uid = Document_Element_GetData(element, "uid", false);
+  if(uid) Document_Element_Disable(element, "style-disabled");
+ }
+ 
+ // DISABLE SURVEY EDITING
+ var section    = UI_Element_Find(display, "section-survey");
+ var elements  = Document_Element_Children(section, true);
+ for(var element of elements)
+ {
+  var uid = Document_Element_GetData(element, "uid", false);
+  if(uid == "answer") Document_Element_Disable(element, "style-disabled");
+ }
+ 
+ // DISABLE DELETING ACTIONS
+ var section    = UI_Element_Find(display, "section-actions");
+ var elements  = Document_Element_Children(section, true);
+ for(var element of elements)
+ {
+  var uid = Document_Element_GetData(element, "uid", false);
+  if(uid == "delete") Document_Element_Disable(element, "style-disabled");
+ }
+ 
+ panel.appendChild(display);
+ 
+ var element = Document_Element_FindChild(display, "actionid", action_id, ["recurse"]);
+ if(element) Document_Element_Animate(element, "flash 1s 3");
+}// -----------------------------------------------------------------------------------------------//
+//                                                                                                //
+//                                         E M B E D                                              //
+//                                                                                                //
+// -----------------------------------------------------------------------------------------------//
+
+async function Embed_OnLoad(module, data)
+{
+ Module_Page_Set();
+}
+
+
+
+async function Embed_OnShow(module, data)
+{
+ 
+}
+
+
+
+
+async function Embed_OnUnload()
+{
 }// -----------------------------------------------------------------------------------------------//
 //                                                                                                //
 //                                          L O G I N                                             //
@@ -13034,7 +13166,7 @@ async function Marketing_Call_DisplayLead(operator_id, container, options = {dat
  // BASE INFO
  if(options["data"])
  {
-  var fields  = ["student_id", "name", "phone_mobile", "center", "email", "province", "city", "postcode", "address", "notes"];
+  var fields  = ["student_id", "name", "phone_mobile", "center", "course", "email", "province", "city", "postcode", "notes"];
   
   // FIELDS
   for(var field of fields)
@@ -13266,6 +13398,12 @@ async function Marketing_Call_SetOutcome(event)
   
   // ENGAGED
   case "eng": 
+
+	var title   = "";
+	var text    = UI_Language_String("marketing/popups", "engaged contact text");
+	var confirm = await UI_Popup_Confirm(title, text);
+	
+	if(!confirm) return;
   
      // RECORD OUTCOME
 	 var date_nouse  = Date_Add_Days(Date_Now(), 365);
@@ -13304,63 +13442,6 @@ async function Marketing_Call_SetOutcome(event)
 
 
 
-async function Marketing_Call_SearchNumber(phone)
-{	 
- if(!phone)
- {
-  var phone = UI_Element_Find("search-number").value;
- }
- 
- var operator_id = User_Id();
- var lead        = await Core_Api("Marketing_Lead_FindByPhone", {phone, fields:"id,name,province,city", whole:true});
-    
- if(lead)
- {
-  var title   = UI_Language_String("marketing/call", "search popup title");
-  var text    = UI_Language_String("marketing/call", "search popup getlead", lead);
-   
-  var confirm = await UI_Popup_Confirm(title, text);
-  if(!confirm) return;
-  
-  var operator_id = User_Id();
-  var lead_id     = lead["id"];
-  
-  await Core_Api("Marketing_Call_AssignLead", {operator_id, lead_id});
-  
-  if(Module_Page_Get() == "call") await Marketing_Call(); else await Module_Page_Set("call");
- }
- 
- else
- 
- {
-  var title   = UI_Language_String("marketing/call", "search popup title");
-  var text    = UI_Language_String("marketing/call", "search popup newlead");
-  var confirm = await UI_Popup_Confirm(title, text);
-   
-  if(!confirm) return;
-   
-  var title   = UI_Language_String("marketing/call", "search popup list");
-  var list_id = await UI_Popup_Select(title, false, false, 
-  async function(select)
-  {
-   var user  = await Core_Api("User_Read", {user_id:operator_id, options:{fields:"marketing_list"}});
-   var list  = user["marketing_list"];
-   var lists = await Core_Api("Marketing_Lists_List", {}); 
-   await Marketing_Lists_ToSelect(lists, select, {selected:list, sections:true});
-  });
-   
-  if(!list_id) return;
-  
-  if(Module_Page_Get() != "call") await Module_Page_Set("call");
-  
-  await Core_Api("Marketing_Lead_New", {phone, list_id, operator_id}); 
-  await Marketing_Call_Next();
-  await Marketing_Call();
- }
- 
-}
-
-
 
 async function Marketing_Call_Next()
 {
@@ -13396,8 +13477,58 @@ async function Marketing_Cases(event)
  element.value                = Date_To_Input(date_to); 
  element.onchange             = Marketing_Cases_UpdateList;
  
+ for(var date of ["lastweek", "yesterday", "today", "thisweek"])
+ {
+  var element = UI_Element_Find(page, "date-" + date);
+  Document_Element_SetData(element, "range", date);
+  
+  element.onclick = 
+  async function(event)
+  {
+   var element = event.srcElement;
+   var range   = Document_Element_GetData(element, "range");
+   
+   switch(range)
+   {
+	case "lastweek":
+		var range = Date_Range("last week");
+	break;
+	
+	case "yesterday":
+		var range = Date_Range("yesterday");
+	break;
+	
+	case "today":
+		var range = Date_Range("today");
+	break;
+
+	case "thisweek":
+		var range = Date_Range("this week");
+	break;
+	
+	default:
+		var range = false;
+	break;
+   }
+   
+   if(range)
+   {
+	UI_Element_Find(page, "date-from").value = Date_To_Input(range["from"]);
+	UI_Element_Find(page, "date-to").value   = Date_To_Input(range["to"]);
+	
+	console.log(range);
+	await Marketing_Cases_UpdateList();
+   }
+  }
+ }
+ 
+ 
+ 
  await Marketing_Cases_UpdateList();
 }
+
+
+
 
 
 async function Marketing_Cases_UpdateList(event)
@@ -13413,9 +13544,30 @@ async function Marketing_Cases_UpdateList(event)
  
  Core_Api("User_Config_WriteSection", {file:"ce", section:"cases", data:config});
 
+
+ switch(User_Config("marketing-cases"))
+ {
+  case "own":
+	var operator_id = User_Id();
+  break;
+  
+  case "all":
+	var operator_id = undefined;
+  break;
+  
+  default:
+	var operator_id = User_Id();
+  break;
+ }
+ 
  var display = UI_Element_Find(page, "cases-list");
- await Marketing_Cases_Display(undefined, date_from, date_to, display) 
+ await Marketing_Cases_Display(operator_id, date_from, date_to, display) 
 }
+
+
+
+
+
 
 
 async function Marketing_Cases_Display(operator_id, date_from, date_to, display)
@@ -13470,6 +13622,12 @@ async function Marketing_Cases_Display(operator_id, date_from, date_to, display)
 }
 
 
+
+
+async function Marketing_Cases_DisplayCase(id)
+{
+}
+
 // -----------------------------------------------------------------------------------------------//
 //                                                                                                //
 //                                    C O N T A C T S                                             //
@@ -13478,18 +13636,51 @@ async function Marketing_Cases_Display(operator_id, date_from, date_to, display)
 
 
 
-async function Marketing_Contact_DisplayCase(id)
+async function Marketing_Contact_DisplayCase(id, options = {})
 {
+ Core_State_Set("marketing", "displaying-case", true);
+ var customer_info = Safe_Get(options, "customer", false);  
+ 
  if(typeof(id) != "object")
  {
   var data = await Core_Api("Marketing_Contact_Read", {id, case:true}); 
  }
+ console.log("case", data);
+ 
+ var case_id = id;
+ Core_State_Set("marketing", "display-contact-id", id);
+ Core_State_Set("marketing", "display-contact-data", data);
+ 
 
- var module = Core_State_Get("core", "module-body");
-
+ 
  // MAIN FORM
  var panel  = UI_Element_Create("marketing/case-form", {}, {language:"marketing/case"});
  Document_Element_SetData(panel, "contact_id", id);
+
+
+ // CUSTOMER INFO?
+ if(customer_info)
+ {
+  UI_Element_Find(panel, "section-customer").style.display = "flex";
+  
+  var lead = data["lead"] || {};
+  for(var field of ["student_id", "name", "phone_mobile", "email"])
+  {
+   UI_Element_Find(panel, field).value = lead[field];
+  }
+ }
+
+ // DELETE CONTACT BUTTON
+ if(User_Role() == "ceman")
+ {
+  var buttonDelete = UI_Element_Find(panel,"delete-button");
+  buttonDelete.style.display = "inherit";
+  buttonDelete.onclick = async (e) => {
+    var id = Core_State_Get("marketing", "display-contact-id");
+    await Marketing_Contacts_CaseDelete(id)
+  }
+ }
+ 
  
  // CENTER
  /*
@@ -13504,6 +13695,9 @@ async function Marketing_Contact_DisplayCase(id)
  select.onchange = Call_SetField;
  */
  
+ // ID
+ var input      = UI_Element_Find(panel, "id");
+ input.value    = data["id"];
  
  // PRODUCT
  var select      = UI_Element_Find(panel, "product");
@@ -13515,7 +13709,7 @@ async function Marketing_Contact_DisplayCase(id)
   
   // PROGRAM
   var select  = UI_Element_Find(panel, "program");
-  Marketing_Contact_SelectData(select, "program-" + element.value);
+  UI_Select_FromConfig(select, "programs-" + element.value, true);
   
   select.value = data["program"]; 
   
@@ -13526,27 +13720,49 @@ async function Marketing_Contact_DisplayCase(id)
  select.value = data["product"]; 
  Document_Event_Trigger(select, "change");
 
+
+ // COURSE
+ var input = UI_Element_Find(panel, "course");
+ input.value = data["course"];
+ input.onchange = Marketing_Contact_SetField;
  
  
  // CALL TYPE
  var select = UI_Element_Find(panel, "call_type");
  Marketing_Contact_SelectData(select, "call_type");
+  
+ select.onchange =
+ async function(event)
+ { 
+  var element = event.srcElement;
+  var select  = UI_Element_Find(panel, "call_reason");
+  
+  var reasons   = Core_Data_Page("marketing/call_reason");
+  
+  select.innerHTML = "";
+  for(var key in reasons)
+  {
+   if(reasons[key]["type"] == element.value)
+   {
+    var text = UI_Language_Object(reasons[key]);
+    Document_Select_AddOption(select, text, key);
+   }
+  }
+
+  select.value    = data["call_reason"];
+  select.onchange = Marketing_Contact_SetField;
+  
+  Marketing_Contact_SetField({srcElement:element});
+ }
+
  select.value = data["call_type"]; 
- select.onchange = Marketing_Contact_SetField;
- 
- // CALL REASON
- var select = UI_Element_Find(panel, "call_reason");
- Marketing_Contact_SelectData(select, "call_reason");
- select.value = data["call_reason"]; 
- select.onchange = Marketing_Contact_SetField;
- 
- 
- // INQUIRIES
- //var departments = Core_Data_Page("marketing/case-departments");
+ Document_Event_Trigger(select, "change");
+
+
 
  // INQUIRY CATEGORY (DEPARTMENTS)
  var select = UI_Element_Find(panel, "inquiry_department");
- Marketing_Contact_SelectData(select, "inquiry_department");
+ UI_Select_FromConfig(select, "departments", true);
  
  select.onchange =
  async function(event)
@@ -13586,7 +13802,6 @@ async function Marketing_Contact_DisplayCase(id)
 
  
  // SURVEY	
- var case_id   = Core_State_Get("marketing", "cases", "case_id");
  var questions = Core_Data_Page("marketing/case-questions");
  var container = UI_Element_Find(panel, "panel-questions");
  
@@ -13620,8 +13835,212 @@ async function Marketing_Contact_DisplayCase(id)
  }
  
  
+ 
+ // CASE	
+ var container = UI_Element_Find(panel, "panel-case");
+ Document_Element_SetData(container, "caseid", case_id);
+ Core_State_Set("marketing", "display-contact-container", container);
+ 
+ await Marketing_Contact_DisplayActions(container, data);
+
+ 
+ UI_Element_Find(panel, "followup-item-add").onclick = Marketing_Contact_RecordAction;
+ 
+ var icon     = UI_Element_Find(panel, "link-case");
+ Document_Element_SetData(icon, "caseid", case_id);
+ icon.onclick = Marketing_Contact_CopyLink;
+ 
+ Core_State_Set("marketing", "displaying-case", false);
  return panel;
 }
+
+
+
+async function Marketing_Contact_CopyLink(event)
+{ 
+ var element       = event.srcElement;
+ var url           = Client_Location_Current() + "?autologin=1&framework=null&module=embed&page=casefollowup";
+ 
+ var case_id       = Document_Element_GetData(element, "caseid", false);
+ if(case_id) url   = url + "&case_id=" + case_id;
+  
+ var action_id    = Document_Element_GetData(element, "actionid", false);
+ if(action_id) url = url + "&action_id=" + action_id;
+  
+ navigator.clipboard.writeText(url);
+ var title = UI_Language_String("marketing/popups", "link copied title");
+ await UI_Popup_Intermission(title, undefined, undefined, 1, {autoclose:true});
+  
+ return url;
+}
+  
+
+
+
+async function Marketing_Contact_DisplayActions(container, data)
+{ 
+ container.innerHTML = "";
+ var case_id = Document_Element_GetData(container, "caseid");
+ 
+ var actions = Safe_Get(data, ["actions"], []);
+ for(var item of actions)
+ {  
+  var element                                   = UI_Element_Create("marketing/case-action-item", {});  
+  UI_Element_Find(element, "date").innerHTML    = UI_Language_Date(item["date"], "date-short");
+  UI_Element_Find(element, "time").innerHTML    = UI_Language_Date(item["date"], "time-only");
+  UI_Element_Find(element, "user").innerHTML    = item["user"];
+  UI_Element_Find(element, "dept").innerHTML    = "(" + UI_Language_String("marketing/inquiry_department", item["department"]) + ")"; 
+  UI_Element_Find(element, "action").value      = item["action"];
+  
+  var outcome                   = UI_Element_Find(element, "outcome");
+  outcome.innerHTML             = UI_Language_String("marketing/case-outcomes", item["outcome"]); 
+  outcome.style.backgroundColor = Document_CSS_Get(Core_Data_Value("marketing/case-outcomes", item["outcome"], "color", "transparent"));
+ 
+  var icon = UI_Element_Find(element, "delete");
+  Document_Element_SetData(icon, "actionid", item["id"]);
+  icon.onclick = Marketing_Contact_DeleteAction;  
+  
+  var icon     = UI_Element_Find(element,    "link");
+  Document_Element_SetData(icon, "caseid",   case_id);
+  Document_Element_SetData(icon, "actionid", item["id"]);
+  icon.onclick = Marketing_Contact_CopyLink;
+  
+  Document_Element_SetData(element, "actionid", item["id"]);
+ 
+  container.appendChild(element);
+ }
+
+}
+
+
+
+async function Marketing_Contact_RecordAction(event)
+{
+ var id      = Core_State_Get("marketing", "display-contact-id");
+ var data    = Core_State_Get("marketing", "display-contact-data", {});
+	
+ var content = UI_Element_Create("marketing/popup-case-addaction", {}, {language:"marketing/case"});
+ var title   = UI_Language_String("marketing/case", "popup addaction title");
+ var button  = 
+ {
+  text    : UI_Language_String("marketing/case", "popup addaction record"),
+  onclick : 
+  async function()
+  {
+   // RECORD ACTION
+   var user       = UI_Element_Find(popup, "user").value;
+   var department = UI_Element_Find(popup, "department").value;
+   var action     = UI_Element_Find(popup, "action").value;
+   var outcome    = UI_Element_Find(popup, "outcome").value;
+   
+   var action_id  = await Core_Api("Marketing_Contact_RecordAction", {id, user, department, action, outcome});
+   
+   
+   // SEND EMAIL
+   var data = Core_State_Get("marketing", "display-contact-data", {});
+   var info = [];
+   info.push(Safe_Get(data, ["lead", "student_id"], ""));
+   info.push(Safe_Get(data, ["lead", "name"], ""));
+   info.push(Safe_Get(data, ["center"], ""));
+   info = info.join(" ");
+   console.log(info);
+	  
+   var ceNotify = Core_Config(["centers",Safe_Get(data, ["center"], ""),"ce-notify"]);
+
+   //var to       = "thanhtran@ilavietnam.edu.vn"; 
+   var to       = ceNotify; 
+   var from     = Module_Config("marketing", "mailer-name") + ";" + Module_Config("marketing", "mailer-email");
+   var subject  = String_Variables_Set(Module_Config("marketing", "case-notify-subject"), {info});
+   var template = Module_Config("marketing", "case-notify-template");
+   var data     = {};
+   data["url"]  = Client_Location_Current() + "?autologin=1&framework=null&module=embed&page=casefollowup&case_id=" + id + "&action_id=" + action_id;
+   
+   var mailsent = await Core_Service("sendmail", {from, to, subject, template, data});
+   console.log(mailsent);
+   
+   
+   
+
+
+   // RELOAD CONTACT 
+   var container = Core_State_Get("marketing", "display-contact-container");
+   var data      = await Core_Api("Marketing_Contact_Read", {id, case:true}); 
+   await Marketing_Contact_DisplayActions(container, data);
+     
+   // CLOSE
+   await UI_Popup_Close(popup);
+   
+   Core_State_Set("marketing",["follow-up","action-default"],false);
+   
+   // FIND THE NEW ITEM AND FLASH IT
+   var element = Document_Element_FindChild(container, "actionid", action_id, ["recurse"]);
+   Document_Element_Animate(element, "flash 1s 3");
+  }
+ }
+
+ var escape = () => {
+	var action = UI_Element_Find(popup, "action").value;
+	Core_State_Set("marketing",["follow-up","action-default"],action);
+	UI_Popup_Close(popup);
+ }
+
+ popup = await UI_Popup_Create({content, title}, [button], "flexi", {open:false, escape});
+ 
+ // DEFAULT USERNAME
+ var user = await User_Read(true);
+ var name = [user["firstname"], user["lastname"]].join();
+ UI_Element_Find(popup, "user").value = name;
+ 
+ // DEPARTMENT BY ROLE
+ var department = User_Config("department");
+ UI_Element_Find(popup, "department").value = department;
+ 
+ // DEPARTMENT SELECT
+ var select   = UI_Element_Find(popup, "department");
+ Document_Select_AddOption(select, "", "");
+ UI_Select_FromConfig(select, "departments", true);
+ 
+ // ACTION 
+ var action = UI_Element_Find(popup,"action");
+ var actionValue = Core_State_Get("marketing",["follow-up","action-default"],false);
+ if(actionValue) action.value = actionValue;
+ 
+ // OUTCOME SELECT
+ var select   = UI_Element_Find(popup, "outcome");
+ UI_Select_FromDatapage(select, "marketing/case-outcomes");
+
+ await UI_Popup_Show(popup);
+}
+
+
+
+
+
+
+async function Marketing_Contact_DeleteAction(event)
+{
+ var element = event.srcElement;
+ var id      = Document_Element_GetData(element, "actionid");
+ var caseid  = Core_State_Get("marketing", "display-contact-id");
+	
+ var title   = UI_Language_String("marketing/case", "popup deleteaction title");
+ var text    = UI_Language_String("marketing/case", "popup deleteaction text");
+ var confirm = await UI_Popup_Confirm(title, text);
+ 
+ if(!confirm) return;
+ 
+ // DELETE
+ await Core_Api("Marketing_Contact_DeleteAction", {id});
+ 
+ // RELOAD CONTACT 
+ var container = Core_State_Get("marketing", "display-contact-container");
+ var data      = await Core_Api("Marketing_Contact_Read", {id:caseid, case:true}); 
+ await Marketing_Contact_DisplayActions(container, data);
+}
+
+
+
+
 
 
 
@@ -13648,7 +14067,7 @@ function Marketing_Contact_SelectData(select, page)
 
 
 
-function Marketing_Contact_Card(contact)
+async function Marketing_Contact_Card(contact)
 {
  var element = UI_Element_Create("marketing/contact-case-card", contact, {language:"marketing/case"});
  
@@ -13666,7 +14085,7 @@ function Marketing_Contact_Card(contact)
  }
   
   
- for(var field of ["call_type", "call_reason", "inquiry_department", "inquiry_topic"])
+ for(var field of ["call_type", "call_reason", "inquiry_topic"])
  {
   var data    = Core_Data_Page("marketing/" + field);
   var item    = data[contact[field]] || {};
@@ -13674,7 +14093,12 @@ function Marketing_Contact_Card(contact)
   var input   = UI_Element_Find(element, field);
   input.value = UI_Language_Object(item);
  }
+
+ var data = Core_Config("departments");
+ var item = data[contact["inquiry_department"]] || {};
  
+ var input = UI_Element_Find(element, "inquiry_department");
+ input.value = UI_Language_Object(item);
  
  return element;
 }
@@ -13683,6 +14107,10 @@ function Marketing_Contact_Card(contact)
 
 async function Marketing_Contact_SetField(event)
 {
+ // DO NOT STORE DATA IF DISPLAYING CASE (NOT TRIGGERED BY USER)
+ if(Core_State_Get("marketing", "displaying-case")) return;
+	
+	
  var element   = event.srcElement;
  var field     = Document_Element_GetData(element, "uid");
  
@@ -13728,10 +14156,99 @@ async function Marketing_Contacts_CasePopup(id)
  
   var popup = await UI_Popup_Create({content}, [], "flexi", {open:false, escape:true, onclose});
   await UI_Popup_Show(popup);
+
+  Core_State_Set("marketing","display-contact-popup",popup);
  });
 
  return promise; 
+}
+
+
+async function Marketing_Contacts_CaseDelete(id) {
+  var confirm = await UI_Popup_Confirm(false, UI_Language_String("marketing/popups","confirm message delete"), "resources/images/cover-alert.jpg");
+  if(!confirm) return;
+ 
+  // DELETE
+  await Core_Api("Marketing_Contact_Delete", {id});
+  
+  // RELOAD CONTACT 
+  var module = Core_State_Get("marketing","page");
+  switch (module) {
+    case "call":
+      var page  = Core_State_Get("marketing", "submodule"); 
+      var container = UI_Element_Find(page, "panel-call");
+      var lead_id = parseInt(Core_State_Get("marketing",["display-contact-data","lead_id"],false));
+      if(lead_id)
+      {
+        var operator_id = User_Id();
+        await Core_Api("Marketing_Call_AssignLead",{operator_id, lead_id})
+        Marketing_Call_DisplayLead(-1, container, {data:true, history:true, outcome:true});
+        UI_Element_Find(page,"more-content").innerHTML = "";
+      } 
+
+      break;
+    case "cases":
+      var popup = Core_State_Get("marketing","display-contact-popup",popup);
+      UI_Popup_Close(popup);
+
+      Marketing_Cases();
+      break;
+  }
 }// -----------------------------------------------------------------------------------------------//
+//                                                                                                //
+//                                       C R E A T E                                              //
+//                                                                                                //
+// -----------------------------------------------------------------------------------------------//
+
+async function Marketing_Create(event)
+{   	
+ // CREATION POPUP
+ var title       = UI_Language_String("marketing/popups", "create lead title");
+ var placeholder = UI_Language_String("marketing/popups", "create lead id");
+ var student_id  = await UI_Popup_Input(title, false, false, placeholder);
+ 
+ if(!student_id) return;
+ 
+ // CHECK IF EXISTS
+ var lead_id = await Core_Api("Marketing_Lead_Exists", {student_id});
+ 
+ // IF IT DOESN'T, OFFER TO CREATE IT
+ if(lead_id)
+ {
+  var title = UI_Language_String("marketing/popups", "create lead title");
+  var text  = UI_Language_String("marketing/popups", "create lead exists", {id:student_id});
+  var popup = await UI_Popup_Intermission(title, text, false, 3, {autoclose:true, template:"flexi"});
+ }
+ else
+ {  
+  var title   = UI_Language_String("marketing/popups", "create lead title");
+  var text    = UI_Language_String("marketing/popups", "create lead confirm", {id:student_id});
+  var picture = Resources_URL("images/cover-alert.jpg");
+  var confirm = await UI_Popup_Confirm(title, text, picture);
+  
+  if(!confirm) return;
+  
+  var lead_id = await Core_Api("Marketing_Lead_New", {student_id});
+ }
+ 
+ // ASSIGN LEAD
+ var operator_id = User_Id();
+ await Core_Api("Marketing_Call_AssignLead", {operator_id, lead_id});
+ 
+ // RETURN TO CALL
+ if(Core_State_Get(module, ["page"]) == "call") 
+ {
+  await Marketing_Call(); 
+ }
+ else 
+ {
+  await Module_Page_Set("call");
+ }
+}
+
+
+
+// -----------------------------------------------------------------------------------------------//
 //                                                                                                //
 //                                      D A T A B A S E                                           //
 //                                                                                                //
@@ -13940,7 +14457,7 @@ async function Marketing_Database_ListLeads()
  UI_Element_Find("panel-list-actions").style.display = "flex";
  
  // CREATE LEADS TABLE 
- var pagerows  = 30;//Module_Config("users", "page"); 
+ var pagerows  = Module_Config("users", "page"); 
  
  var display  = Database_View_Create("Marketing_Leads_ByList", pagerows, 
  {
@@ -13951,12 +14468,19 @@ async function Marketing_Database_ListLeads()
  }, 
  "marketing/lead-fields", false, false, {export_fields:"student_id,phone_mobile,email,name", operations:{}});
  
- 
+ // Change order from name to id
+ // await Database_View_Query(display,
+ // {		
+  // fields : "student_id,phone_mobile,email,name",
+  // list_id: Core_State_Get("marketing", ["database", "selected-list", "id"], -1),
+  // order  : "name",
+ // }); 
+
  await Database_View_Query(display,
  {		
   fields : "student_id,phone_mobile,email,name",
   list_id: Core_State_Get("marketing", ["database", "selected-list", "id"], -1),
-  order  : "name",
+  order  : "order_id",
  }); 
 
 
@@ -14223,7 +14747,7 @@ async function Marketing_Database_MoveLeads()
 
 async function Marketing_Database_UploadLeads()
 {
- var fields    = ["student_id", "name", "center", "phone_mobile", "email", "province", "city", "notes"];
+ var fields    = ["student_id", "name", "center", "course", "phone_mobile", "email", "province", "city", "notes"];
  var popup     = false;
  var content   = false;
  var lines     = [];
@@ -14242,9 +14766,9 @@ async function Marketing_Database_UploadLeads()
  var files = await Storage_File_Select({accept:".csv, .txt"});
  if(!files || files.length == 0) return;
  
- var data  = await Storage_File_Read(files[0]);
+ var data  = await Storage_File_ReadText(files[0]);
  
-
+ var deletedFR = false;
  
  // FUNCTION UPDATE
  var update =
@@ -14255,11 +14779,12 @@ async function Marketing_Database_UploadLeads()
   firstrow  = UI_Element_Find(popup, "select-firstrow").value; 
   
   // DECODE
-  var text  = atob(data);
+  var text  = data; //atob(data);
   lines     = Array_From_String(text, "\r\n");
   
   if(firstrow == "fields" && lines.length > 0)
   {
+   deletedFR = true;
    Array_Element_DeleteAt(lines, 0);
   }
   
@@ -14318,6 +14843,8 @@ async function Marketing_Database_UploadLeads()
    }
   }
 
+  if(!deletedFR)
+  Array_Element_DeleteAt(lines, 0);
 
   // DISPLAY SAMPLE
   var container       = UI_Element_Find(popup, "sample");
@@ -14355,7 +14882,7 @@ async function Marketing_Database_UploadLeads()
   var list     = lists[list_id];
   
   // OTHER UPLOAD PARAMETERS
-  var leads    = lines;
+  var leads    = lines.filter(lead => { if(lead.join("").length > 0) return true; else return false });
   var code     = UI_Element_Find(popup, "input-tag").value;
   
 
@@ -14429,6 +14956,159 @@ async function Marketing_Database_UploadLeads()
  update();
  await UI_Popup_Show(popup);
 }// -----------------------------------------------------------------------------------------------//
+//                                                                                                //
+//                                      L E A D S                                                 //
+//                                                                                                //
+// -----------------------------------------------------------------------------------------------//
+
+
+
+async function Marketing_Leads_Create(phone, studentid)
+{
+ var title   = UI_Language_String("marketing/call", "search popup title");
+ var text    = UI_Language_String("marketing/call", "search popup newlead");
+ var confirm = await UI_Popup_Confirm(title, text);
+   
+ if(!confirm) return;
+   
+ var title   = UI_Language_String("marketing/call", "search popup list");
+ var list_id = await UI_Popup_Select(title, false, false, 
+ async function(select)
+ {
+  var user  = await Core_Api("User_Read", {user_id:operator_id, options:{fields:"marketing_list"}});
+  var list  = user["marketing_list"];
+  var lists = await Core_Api("Marketing_Lists_List", {}); 
+  await Marketing_Lists_ToSelect(lists, select, {selected:list, sections:true});
+ });
+   
+ if(!list_id) return;
+  
+ if(Module_Page_Get() != "call") await Module_Page_Set("call");
+  
+ await Core_Api("Marketing_Lead_New", {phone, list_id, operator_id}); 
+ await Marketing_Call_Next();
+ await Marketing_Call();
+}
+
+
+
+
+
+
+function Marketing_Leads_FieldType(string)
+{
+ // PHONE?
+ if(String_Is_Number(string) && (string.length >=9))
+ {
+  return "phone";
+ }
+
+ // EMAIL?   
+ if(string.includes("@"))
+ {
+  return "email";
+ }
+
+ // CODE?
+ var parts = string.split("-");
+ if((parts.length == 2) && (String_Is_Number(parts[1])))
+ {
+  return "code";
+ }
+
+ // TEXT (NAME OR NOTES)
+ return "text";
+}
+
+
+
+
+async function Marketing_Leads_SearchPopup(fields = "student_id,name", count = 100, order = "id")
+{
+ var promise = new Promise((resolve, reject) =>
+ {
+  var title   = UI_Language_String("marketing/popups", "search lead title");
+  var text    = UI_Language_String("marketing/popups", "search lead button");
+  
+  var content = UI_Element_Create("marketing/popup-select-search", {}, {language:"marketing/popups"});
+  var table   = false;
+  
+  // DEBOUNCEABLE SEARCH FUNCTION
+  var update_timeout = false;
+  
+  function update()
+  {
+   if(update_timeout) clearTimeout(update_timeout);
+   
+   update_timeout = setTimeout(
+   async function()
+   {
+	var search =
+	{
+	 fields,
+	 count,
+	 order
+	}
+	
+	// GET OTHER SEARCH VALUES FROM THE POPUP
+	for(var field of ["name", "email", "phone_mobile", "student_id"]) search[field] = UI_Element_Find(content, field).value;	
+
+    var users       = await Core_Api("Marketing_Leads_Search", {search});
+	
+	var tablefields = {};
+	for(var field of fields.split(",")) tablefields[field] = true;
+	table     = UI_Table_Data(users, tablefields, "users/table-fields");
+	
+    var display = UI_Element_Find(content, "users");
+	display.innerHTML = "";
+	display.appendChild(table);
+  
+	update_timeout = false;
+   }, 1000);
+  }
+  
+ 
+  // FIELDS
+  for(var field of ["name", "email", "phone_mobile", "student_id"])
+  {
+   var element  = UI_Element_Find(content, field);
+    
+   element.onkeypress  = update;
+   //element.onblur      = update;
+  }
+ 
+  
+  var onclick = 
+  function(popup)
+  {
+   UI_Popup_Close(popup);
+   
+   var row = Document_Element_GetObject(table, "selected-row");
+   if(row)
+   {
+	var user = Document_Element_GetObject(row, "item");
+   }
+   else
+   {
+	var user = false;
+   }
+   
+   resolve(user);
+  }
+
+
+  var onescape =
+  function()
+  {
+   resolve(false);
+  }
+ 
+  UI_Popup_Create({title, content}, [{text, onclick}], "flexi", {escape:true, open:true, onescape});  
+ });
+ 
+ return promise;
+}
+// -----------------------------------------------------------------------------------------------//
 //                                                                                                //
 //                                   M A R K E T I N G                                            //
 //                                                                                                //
@@ -14510,6 +15190,7 @@ function Marketing_Lists_ToSelect(lists, select, options = {selected:false})
   
  if(options["selected"]) select.value = options["selected"];
 }
+
 // -----------------------------------------------------------------------------------------------//
 //                                                                                                //
 //                                    O P E R A TO R S                                            //
@@ -14528,7 +15209,7 @@ async function Marketing_Operators(event)
  
 
  // OPERATORS REPORTING TO YOU
- var list = await Core_Api("Marketing_Operators_ByManager", {});
+ var list = await Core_Api("Marketing_Operators_ByRole", {roles:["ceoper", "cesuper"]});
  Core_State_Set("marketing", ["operators", "list"], list);
  
  // OPERATORS WORKING ON SPECIFIC CENTERS
@@ -14848,20 +15529,36 @@ async function Marketing_Operators_DisplayStats(event)
  UI_Element_Find("panel-extras").style.display = "none"; 
 }// -----------------------------------------------------------------------------------------------//
 //                                                                                                //
-//                                    S E A R C H                                                 //
+//                                      S E A R C H                                               //
 //                                                                                                //
 // -----------------------------------------------------------------------------------------------//
 
 async function Marketing_Search(event)
 {   
- var title  = UI_Language_String("marketing/call", "search popup title");
- var number = await UI_Popup_Input(title);
- 
- if(number) 
+ var lead = await Marketing_Leads_SearchPopup(); 
+ console.log(lead);
+  
+ if(lead)
  {
-  await Marketing_Call_SearchNumber(number); 
+  var operator_id = User_Id();
+  var lead_id     = lead["id"];
+  
+  await Core_Api("Marketing_Call_AssignLead", {operator_id, lead_id});
+  
+  
+  // RETURN TO CALL
+  if(Core_State_Get(module, ["page"]) == "call") 
+  {
+   await Marketing_Call(); 
+  }
+  else 
+  {
+   await Module_Page_Set("call");
+  }
  }
+  
 }
+
 
 
 // -----------------------------------------------------------------------------------------------//
@@ -15090,7 +15787,7 @@ async function Marketing_Stats_Appointments()
 
 async function Marketing_Stats_Calls()
 {
- var operators     = await Core_Api("Marketing_Operators_ByManager", {});
+ var operators     = await Core_Api("Marketing_Operators_ByRole", {roles:["ceoper", "cesuper"]});
  var outcomes      = Core_Data_Page("marketing/outcomes");
  var subpage       = UI_Element_Create("marketing/stats-subpage-calls");
  

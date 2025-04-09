@@ -446,6 +446,17 @@ function Date_Distance_Days($a, $b)
 }
 
 
+function Date_Distance_Minutes($a, $b)
+{
+ $a = Date_To_PHP($a);
+ $b = Date_To_PHP($b);
+    
+ $diff = $a->getTimestamp() - $b->getTimestamp();
+    
+ return $diff / 60;
+}
+
+
 function Date_Format_NoSeconds($date)
 {
  return substr($date, 0, 12);
@@ -2134,6 +2145,16 @@ function Center_Rooms($center)
 
 
 
+function Center_Config($center)
+{
+ $config = parse_ini_file("partners/". $_SESSION["partner"] . "/centers/" . $center . "/center.cfg", true) ?: [];
+ 
+ return $conffig;
+}
+
+
+
+
 
 function Center_Rooms_Available($center, $dates, $options = [])
 {
@@ -2545,6 +2566,36 @@ function Core_Files_PartnerQueries()
 
 
 
+?><?php
+
+function Sendmail_Fail_Log($subject,$to,$cc,$body,$error,$options = [])
+{
+  try {
+
+    $user_id = $_SESSION["user"]["id"] ?? 0;
+    $db     = Core_Database_Open();
+
+    $subjectFormat = SQL_Format($subject,$db);
+
+    $toFormat = json_encode([$to]);
+    $toFormat = SQL_Format($toFormat,$db);
+    
+    $ccFormat = json_encode([$cc]);
+    $ccFormat = SQL_Format($ccFormat,$db);
+    
+    $bodyFormat = json_encode([$body]);
+    $bodyFormat = SQL_Format($bodyFormat,$db);
+    
+    $errorFormat = json_encode([$error]);
+    $errorFormat = SQL_Format($errorFormat,$db);
+
+    SQL_Query("INSERT INTO sendmail_fail(user_id,subject,to,cc,body,error) VALUES($user_id,$subjectFormat,$toFormat,$ccFormat,$bodyFormat,$errorFormat)",$db);
+  } catch (\Throwable $th) {
+    die($th);
+  }
+
+}
+
 ?><?PHP
 
 function Main_Load()
@@ -2626,7 +2677,7 @@ function Marketing_List_Rename($id, $name)
 
  // SEARCH FOR LISTS OF THE SAME NAME 
  $name  = SQL_Format($name, $db);
- $list  = SQL_Query("SELECT id FROM marketing_lists WHERE name = $name", $db);
+ $lists = SQL_Query("SELECT id FROM marketing_lists WHERE name = $name", $db);
  
  if(count($lists) > 0)
  {
@@ -2820,6 +2871,10 @@ function Marketing_Leads_Upload($list_id = -1, $leads = [], $assign = [], $creat
 
  
 
+ $order_id = 0;
+ // CHECK EXIST DATA LIST
+ $check = SQL_Query("SELECT COUNT(id) as count FROM marketing_leads WHERE list_id = $list_id",$db);
+ if(count($check)) $order_id = intval($check[0]["count"]);
 
  // PREPARE QUERIES
  foreach($leads as &$lead)
@@ -2837,11 +2892,14 @@ function Marketing_Leads_Upload($list_id = -1, $leads = [], $assign = [], $creat
    array_push($update, "$field = $value");
   }
   $values = implode(", ", $values);
+
+  $order_id = $order_id + 1;
+  array_push($update, "order_id = $order_id");
   
   array_push($update, "list_id = $list_id");
   $update = implode(", ", $update);
    
-  $lead = "INSERT INTO marketing_leads (list_id, creation_date,  $query_fields) VALUES ($list_id, $creation_date, $values) ON DUPLICATE KEY UPDATE $update";
+  $lead = "INSERT INTO marketing_leads (list_id, creation_date,  $query_fields , order_id) VALUES ($list_id, $creation_date, $values, $order_id) ON DUPLICATE KEY UPDATE $update";
  }
 
  //return $leads;
@@ -2850,7 +2908,7 @@ function Marketing_Leads_Upload($list_id = -1, $leads = [], $assign = [], $creat
  // INSERT
  $db->beginTransaction();
  
- foreach($leads as $lead)
+ foreach($leads as &$lead)
  {
   SQL_Query($lead, $db);
  }
@@ -2883,13 +2941,13 @@ function Marketing_Lead_Update($id, $field, $value)
 
 
 
-function Marketing_Lead_New($phone, $list_id, $operator_id = -1)
+function Marketing_Lead_New($student_id, $list_id = -1, $operator_id = -1)
 {
  $db    = Core_Database_Open();
  
- $phone = SQL_Format($phone, $db);
+ $student_id = SQL_Format($student_id, $db);
  
- $id    = SQL_Query("INSERT INTO marketing_leads (phone_mobile, list_id) VALUES($phone, $list_id)", $db);
+ $id    = SQL_Query("INSERT INTO marketing_leads (student_id, list_id) VALUES($student_id, $list_id)", $db);
  
  if($operator_id)
  {
@@ -2904,12 +2962,12 @@ function Marketing_Lead_New($phone, $list_id, $operator_id = -1)
 
 
 
-function Marketing_Lead_FindByPhone($phone, $fields = "*", $whole = true)
+function Marketing_Lead_SearchByPhone($search, $fields = "*", $whole = true)
 {
  $db    = Core_Database_Open();
  
- $phone = SQL_Format($phone, $db);
- $leads = SQL_Query("SELECT * FROM marketing_leads WHERE phone_mobile = $phone", $db);
+ $phone = SQL_Format($search, $db);
+ $leads = SQL_Query("SELECT * FROM marketing_leads WHERE phone_mobile = $search", $db);
  
  SQL_Close($db);
  
@@ -3047,80 +3105,100 @@ function Marketing_Leads_Reset($list_id = -1, $criteria = "all", $value = false)
 
 
 
-function Marketing_Lead_AutoList($lead_id, $outcome, $count, $list_name)
+function Marketing_Leads_Search($search = [])
 {
- $info            = [];
- $info["new"]     = false;
- $info["list_id"] = false;
- $info["center"]  = "";
+ $db     = Core_Database_Open();
+  
+ $search = (array) $search;
  
- $db = Core_Database_Open(); 
  
- // CHECK IF LEAD HAS LAST N CONSECUTIVE CONTACTS WITH SAME OUTCOME
- $contacts = SQL_Query("SELECT outcome FROM marketing_contacts WHERE lead_id = $lead_id ORDER BY id DESC LIMIT $count", $db);
+ // 1. FIELDS
+ $fields = $search["fields"] ?: [];
+ if(gettype($fields) == "string") $fields = explode(",", $fields);
+ if(array_search("id", $fields) === false) array_unshift($fields, "id");
+ $fields = implode(",", $fields);
  
- if(count($contacts) == 0) $validate = false;
- else
+ // 2. CONDITIONS
+ $conditions = [];
+ 
+  
+ // 2c. ID OR ELSE
+ if($search["student_id"])
  {
-  $validate = true;
-  foreach($contacts as $contact) 
+  $id = $search["student_id"];
+  array_push($conditions, "(student_id = '$id')");
+ }
+ else
+ // OTHER FIELDS
+ {
+  // NAME
+  if($search["name"])
   {
-   if($contact["outcome"] != $outcome)
-   {
-    $validate = false;
-    break;
-   }
+   $lastname = $search["name"];
+   array_push($conditions, "(name LIKE '$name%')");
+  }
+  
+  
+  // EMAIL
+  if($search["email"])
+  {
+   $email = $search["email"];
+   array_push($conditions, "(email LIKE '$email%')");
+  }
+  
+  // MOBILE
+  if($search["phone_mobile"])
+  {
+   $mobile = $search["phone_mobile"];
+   array_push($conditions, "(phone_mobile LIKE '$mobile%')");
   }
  }
+ 
+ 
 
  
- if(!$validate)
- {
-  SQL_Close($db);
-  return false;
+ $conditions = implode(" AND ", $conditions);
+ 
+ 
+ // 3. LIMIT
+ if($search["count"])
+ { 
+  $limit = $search["count"];
+  $limit = "LIMIT $limit";
  }
+ else $limit = "";
  
  
- // GET LEAD'S CENTER
- $leads     = SQL_Query("SELECT list_id, center FROM marketing_leads WHERE id = $lead_id", $db);
- //$center    = $leads[0]["center"];
- $lead_list = $leads[0]["list_id"];
- $lists     = SQL_Query("SELECT center_id FROM marketing_lists WHERE id = $lead_list", $db);
- $center    = $lists[0]["center_id"];
- 
- 
- // LIST : CREATE IF DOES NOT EXIST
- $list_name = SQL_Format($list_name, $db);
- $center    = SQL_Format($center, $db);
- 
- $lists = SQL_Query("SELECT id FROM marketing_lists WHERE name = $list_name AND center_id = $center", $db);
- if(count($lists) > 0)
- {
-  $list_id = $lists[0]["id"];
+ // 4. ORDER
+ if($search["order"])
+ { 
+  $order = $search["order"];
+  $order = "ORDER BY $order";
  }
- else 
- {
-  $list_id     = SQL_Query("INSERT INTO marketing_lists(name, center_id) VALUES($list_name, $center)", $db);
-  $info["new"] = true;
- }
+ else $order = "";
  
- $info["list_id"] = $list_id;
- $info["center"]  = $center;
  
- // UNASSIGN FROM OPERATOR (?) AND MOVE TO LIST
- SQL_Query("UPDATE marketing_leads SET operator_id = NULL, outcome_last = NULL, list_id = $list_id WHERE id = $lead_id", $db);
- //SQL_Query("UPDATE users SET marketing_lead = NULL WHERE marketing_lead = $lead_id", $db);
- Marketing_List_LeadsCount($lead_list);
- Marketing_List_LeadsCount($list_id);
+ $query = trim("SELECT $fields FROM marketing_leads WHERE $conditions $order $limit");
+ $rows  = SQL_Query($query, $db);
  
  SQL_Close($db); 
-
  
- 
- return $info;
+ return $rows; 
 }
 
 
+function Marketing_Lead_Exists($student_id)
+{
+ $db = Core_Database_Open();
+ 
+ $student_id = SQL_Format($student_id, $db);
+ $leads      = SQL_Query("SELECT id FROM marketing_leads WHERE student_id = $student_id", $db);
+ $id         = $leads[0]["id"] ?? false;
+ 
+ SQL_Close($db);
+ 
+ return $id;
+}
 
 
 
@@ -3148,6 +3226,20 @@ function Marketing_Operators_ByManager($manager_id = -1)
  return $operators;
 }
 
+
+function Marketing_Operators_ByRole($roles= [])
+{  
+ $db    = Core_Database_Open(); 
+ 
+ $roles = SQL_Format_IN($roles, $db);
+ 
+ $query = "SELECT id,firstname,lastname,marketing_list FROM users WHERE role IN ($roles) ORDER BY role DESC, firstname";
+ 
+ $operators = SQL_Query($query, $db);
+ SQL_Close($db);
+ 
+ return $operators;
+}
 
 
 
@@ -3325,7 +3417,7 @@ function Marketing_Call_GetLead($operator_id = -1, $fields = "*", $options = [])
  if(!$lead)
  {
   // CHECK LEADS
-  $leads   = SQL_Query("SELECT $fields FROM marketing_leads WHERE (operator_id = $operator_id) AND (date_nouse < $date) AND (outcome_last IS NULL OR outcome_last <> 'rec')", $db);
+  $leads   = SQL_Query("SELECT $fields FROM marketing_leads WHERE (operator_id = $operator_id) AND (date_nouse < $date) AND (outcome_last IS NULL OR (outcome_last <> 'rec' AND outcome_last <>'eng'))", $db);
   
   if(count($leads) > 0)
   {
@@ -3369,7 +3461,7 @@ function Marketing_Call_GetLead($operator_id = -1, $fields = "*", $options = [])
   {
    // SELECT RANDOM FROM LIST
    $list_id = $operator["marketing_list"];
-    $leads   = SQL_Query("SELECT $fields FROM marketing_leads WHERE (list_id = $list_id) AND (operator_id IS NULL) AND (date_nouse < $date) AND (outcome_last IS NULL OR outcome_last <> 'rec') ORDER BY RAND() LIMIT 1", $db);
+    $leads   = SQL_Query("SELECT $fields FROM marketing_leads WHERE (list_id = $list_id) AND (operator_id IS NULL) AND (date_nouse < $date) AND (outcome_last IS NULL OR (outcome_last <> 'rec' AND outcome_last <> 'eng')) ORDER BY order_id  LIMIT 1", $db);
   
    // FOUND ONE? ASSIGN IT AND RETURN IT  
    if(count($leads) > 0)
@@ -3391,12 +3483,6 @@ function Marketing_Call_GetLead($operator_id = -1, $fields = "*", $options = [])
   
   // 1. MARK LEAD AS OWNED BY OPERATOR
   Marketing_Call_AssignLead($operator_id, $lead_id, $db);
-  
-  
-  // 2. COMPLEMENT LIST WITH CENTER ID DERIVED FROM LEAD'S LIST_ID
-  $list_id           = $lead["list_id"];
-  $centers           = SQL_Query("SELECT center_id FROM marketing_lists WHERE id = $list_id", $db);
-  $lead["center_id"] = $centers[0]["center_id"];  
   
   
   // 3. COMPLEMENT LEAD WITH CONTACTS
@@ -3492,7 +3578,7 @@ function Marketing_Call_NewContact($contact, $release = false, $date_nouse = fal
  // INIT  
  $lead_id = $contact["lead_id"];
  $user_id = $contact["user_id"];
-
+ 
  foreach(["date_call", "date_recall"] as $date)
  {
   if(isset($contact[$date]) && ($contact[$date] !== -1))
@@ -3510,9 +3596,7 @@ function Marketing_Call_NewContact($contact, $release = false, $date_nouse = fal
   SQL_Query("UPDATE marketing_leads SET date_nouse = $date_nouse WHERE id = $lead_id", $db);
  }
  
- 
 
- 
  
  // IF A DATE_RECALL IS SET...
  if($contact["date_recall"] && $contact["date_recall"] != -1)
@@ -3524,6 +3608,13 @@ function Marketing_Call_NewContact($contact, $release = false, $date_nouse = fal
   $recall_id            = Triggers_New($user_id, "tmkrec", $contact["date_recall"], $lead_id);
   $contact["recall_id"] = $recall_id;
  }
+ 
+ 
+ 
+ // GET SOME FIELDS FROM THE LEAD
+ $leads   = SQL_Query("SELECT center, course FROM marketing_leads WHERE id = $lead_id", $db);
+ $lead    = $leads[0];
+ $contact = array_merge($contact, $lead);
  
  
  // CREATE CONTACT
@@ -3698,18 +3789,29 @@ function Marketing_Contact_Set($id, $field, $value)
 
 
 
-function Marketing_Contact_Read($id, $case = false)
+function Marketing_Contact_Read($id, $case = false, $lead = false)
 {
  $db = Core_Database_Open(); 
  
  $calls = SQL_Query("SELECT * FROM marketing_contacts WHERE id = $id", $db);
  $call  = $calls[0];
  
+
+ $lead_id      = $call["lead_id"];
+ $leads        = SQL_Query("SELECT student_id, name, phone_mobile, email FROM marketing_leads WHERE id = $lead_id", $db);
+ $call["lead"] = $leads[0];
+ 
+ 
  if($case)
  {
-  $survey = SQL_Query("SELECT * FROM customer_survey WHERE contact_id = $id", $db);
-  $survey = Array_Catalog_ByField($survey, "question", true);
+  $survey         = SQL_Query("SELECT * FROM marketing_contacts_questions WHERE contact_id = $id", $db);
+  $survey         = Array_Catalog_ByField($survey, "question", true);
   $call["survey"] = $survey;
+  
+  
+  // READ CASE ACTIONS
+  $actions         = SQL_Query("SELECT * FROM marketing_contacts_actions WHERE contact_id = $id ORDER BY date DESC", $db);
+  $call["actions"] = $actions;
  }
  
  SQL_Close($db);
@@ -3717,6 +3819,56 @@ function Marketing_Contact_Read($id, $case = false)
  return $call;
 }
 
+
+function Marketing_Contact_Delete($id)
+{
+ $db = Core_Database_Open(); 
+ 
+ SQL_Query("DELETE FROM marketing_contacts WHERE id = $id", $db);
+ 
+ SQL_Close($db);
+}
+
+
+function Marketing_Contact_RecordAction($id, $user, $department, $action, $outcome)
+{
+  $db = Core_Database_Open(); 
+  
+  $user       = SQL_Format($user,   $db);
+  $department = SQL_Format($department, $db);
+  $action     = SQL_Format($action, $db);
+  $outcome    = SQL_Format($outcome, $db);
+  
+  $date        = Date_Now();
+  
+  $last = SQL_Query("SELECT date FROM marketing_contacts_actions WHERE contact_id = $id ORDER BY date DESC LIMIT 1", $db);
+  if(count($last) == 0)
+  {
+   $action_time = 0;
+  }
+  else
+  {
+   $action_time = Date_Distance_Minutes($date, $last[0]["date"]);
+  }
+  
+  $id = SQL_Query("INSERT INTO marketing_contacts_actions (contact_id, user, department, action, outcome, date, action_time) VALUES($id, $user, $department, $action, $outcome, $date, $action_time)", $db);
+  
+  SQL_Close($db);
+  
+  return $id;
+}
+
+
+
+
+function Marketing_Contact_DeleteAction($id)
+{
+ $db = Core_Database_Open(); 
+ 
+ SQL_Query("DELETE FROM marketing_contacts_actions WHERE id = $id", $db);
+ 
+ SQL_Close($db);
+}
 
 
 
@@ -3738,7 +3890,7 @@ function Marketing_Survey_Set($contact_id, $question, $department, $answer)
  $answer     = SQL_Format($answer, $db);
  $department = SQL_Format($department, $db);
  
- SQL_Query("INSERT INTO customer_survey (contact_id, question, department, answer) VALUES($contact_id, $question, $department, $answer) ON DUPLICATE KEY UPDATE answer = $answer, department = $department", $db); 
+ SQL_Query("INSERT INTO marketing_contacts_questions (contact_id, question, department, answer) VALUES($contact_id, $question, $department, $answer) ON DUPLICATE KEY UPDATE answer = $answer, department = $department", $db); 
  
  SQL_Close($db);
 }
@@ -3869,6 +4021,21 @@ function Marketing_Stats_Calls($date = false, $operators = -1, $utc = false)
  }
 
  return $stats;
+}
+
+
+
+function Marketing_Reset()
+{
+ /*
+ TRUNCATE marketing_contacts_questions;
+TRUNCATE marketing_contacts_actions;
+TRUNCATE marketing_contacts;
+TRUNCATE marketing_leads;
+TRUNCATE marketing_lists;
+TRUNCATE users_triggers;
+UPDATE users SET marketing_lead = null, marketing_list = null;
+*/
 }
 
 

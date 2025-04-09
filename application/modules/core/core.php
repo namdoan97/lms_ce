@@ -156,7 +156,7 @@ function Core_Database_Open()
 {
  $config   = $_SESSION["config"];
  
- $host     = "localhost";
+ $host     = $config["system"]["database"]["host"];//"localhost";
  $username = $config["system"]["database"]["username"];
  $password = $config["system"]["database"]["password"];
  $schema   = $config["system"]["database"]["schema"];
