@@ -261,7 +261,7 @@ async function Marketing_Call_DisplayLead(operator_id, container, options = {dat
  // BASE INFO
  if(options["data"])
  {
-  var fields  = ["student_id", "name", "phone_mobile", "center", "course", "email", "province", "city", "postcode", "notes"];
+  var fields  = ["student_id", "name", "center", "course", "province", "city", "postcode", "notes", "owner_name", "teachers_tas_name"];
   
   // FIELDS
   for(var field of fields)

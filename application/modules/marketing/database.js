@@ -497,7 +497,7 @@ async function Marketing_Database_MoveLeads()
 
 async function Marketing_Database_UploadLeads()
 {
- var fields    = ["student_id", "name", "center", "course", "phone_mobile", "email", "province", "city", "notes"];
+ var fields    = ["student_id", "name", "center", "course", "phone_mobile", "email", "province", "city", "notes", "owner_name", "teachers_tas_name"];
  var popup     = false;
  var content   = false;
  var lines     = [];

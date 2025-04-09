@@ -56,3 +56,8 @@ en = "Lead List"
 en = "ATTENTION: RE-CALL"
 
 
+[lead owner name]
+en = "Owner name"
+
+[lead teacher ta name]
+en = "Teacher/TA name"
