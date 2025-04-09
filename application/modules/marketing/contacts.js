@@ -308,15 +308,16 @@ async function Marketing_Contact_RecordAction(event)
    
    // SEND EMAIL
    var data = Core_State_Get("marketing", "display-contact-data", {});
+   console.log('data:',data);
    var info = [];
    info.push(Safe_Get(data, ["lead", "student_id"], ""));
    info.push(Safe_Get(data, ["lead", "name"], ""));
    info.push(Safe_Get(data, ["center"], ""));
    info = info.join(" ");
    console.log(info);
-	  
+   console.log('center: ',Safe_Get(data, ["center"],""));
    var ceNotify = Core_Config(["centers",Safe_Get(data, ["center"], ""),"ce-notify"]);
-
+	console.log('center emails:', ceNotify);
    //var to       = "thanhtran@ilavietnam.edu.vn"; 
    var to       = ceNotify; 
    var from     = Module_Config("marketing", "mailer-name") + ";" + Module_Config("marketing", "mailer-email");
