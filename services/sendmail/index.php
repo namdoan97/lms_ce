@@ -1,11 +1,19 @@
 <?PHP
 
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\Exception;
+
+// require 'PHPMailer/Exception.php';
+// require 'PHPMailer/PHPMailer.php';
+// require 'PHPMailer/SMTP.php';
+
+chdir("../..");
+include "services/sendmail/phpmailer/SMTP.php";
+include "services/sendmail/phpmailer/PHPMailer.php";
+require 'services/sendmail/phpmailer/Exception.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
-require 'PHPMailer/Exception.php';
-require 'PHPMailer/PHPMailer.php';
-require 'PHPMailer/SMTP.php';
 
 
 function String_ReplaceVariables($string, $variables, $delimiter)
@@ -42,7 +50,8 @@ $data     = $email["data"];
 
 
 // GET EMAIL TEMPLATE AND FILL IT
-$html = file_get_contents("templates/$template.html");
+$html = file_get_contents("services/sendmail/templates/$template.html");
+echo('template:'."templates/$template.html:");print_r($html);echo('<br>');
 $html = String_ReplaceVariables($html, $data, "$");
  
   
