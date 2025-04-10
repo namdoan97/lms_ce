@@ -15,6 +15,10 @@ async function Embed_Casefollowup()
  var panel     = UI_Element_Find(page, "display");
  var display   = await Marketing_Contact_DisplayCase(case_id, {customer:true});
  
+ // DISABLLE DELETE CONTACT
+ var buttonDelete = UI_Element_Find(display,"delete-button");
+ if(buttonDelete)
+ Document_Element_Disable(buttonDelete, "style-disabled");
  
  // DISABLE CUSTOMER SECTION
  /*
