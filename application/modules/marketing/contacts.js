@@ -305,6 +305,11 @@ async function Marketing_Contact_RecordAction(event)
   onclick : 
   async function()
   {
+   var loader = document.createElement("div");
+   loader.className = "loader-circle";
+   var buttons = UI_Element_Find(popup, "buttons");
+   buttons.innerHTML = "";
+   buttons.appendChild(loader);
    // RECORD ACTION
    var user       = UI_Element_Find(popup, "user").value;
    var department = UI_Element_Find(popup, "department").value;
